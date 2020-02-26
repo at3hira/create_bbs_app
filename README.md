@@ -10,3 +10,7 @@ docker-composeでLaravelの環境を構築する。
 - nginx 1.17.6
 - mysql 5.7
 - redis 5.0.7
+
+## dockerコマンド  
+    docker-compose up -d --build  
+    
