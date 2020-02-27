@@ -13,16 +13,17 @@ class CreateThreadTable extends Migration
      */
     public function up()
     {
-        Schema::create('thread', function (Blueprint $table) {
+        Schema::create('threads', function (Blueprint $table) {
 			$table->bigIncrements('id');
-			$table->unsignedInteger('category_id');
+			$table->unsignedBigInteger('category_id');
 			$table->string('title', 50);
 			$table->string('body');
+			$table->string('img_url', 100);
 			$table->integer('status');
-			$table->string('url', 100);
 			$table->timestamps();
 
-			$table->foreign('category_id')->references('id')->on('category');
+			$table->foreign('category_id')->references('id')->on('categorys');
+			$table->index('category_id');
 		});
     }
     /**
@@ -32,6 +33,6 @@ class CreateThreadTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('thread');
+        Schema::dropIfExists('threads');
     }
 }

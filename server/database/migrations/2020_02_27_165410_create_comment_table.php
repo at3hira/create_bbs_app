@@ -13,17 +13,18 @@ class CreateCommentTable extends Migration
      */
     public function up()
     {
-        Schema::create('comment', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->bigIncrements('id');
-			$table->unsignedInteger('thread_id');
+			$table->unsignedbigInteger('thread_id');
 			$table->text('body');
 			$table->integer('status');
 			$table->ipAddress('ipaddress')->nullable();
 			$table->char('ua', 100)->nullable();
 			$table->timestamps();
 
-			$table->foreign('thread_id')->references('id')->on('thread');
-        });
+			$table->foreign('thread_id')->references('id')->on('threads');
+			$table->index('thread_id');
+		});
     }
 
     /**
@@ -33,6 +34,6 @@ class CreateCommentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comment');
+        Schema::dropIfExists('comments');
     }
 }
