@@ -12,5 +12,7 @@ docker-composeでLaravelの環境を構築する。
 - redis 5.0.7
 
 ## dockerコマンド  
+
+  #### 初回build
     docker-compose up -d --build  
     
