@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+Route::get('/', 'ThreadsController@index')->name('top');
+Route::resource('threads', 'ThreadsController', ['only' => ['create', 'store']]);
