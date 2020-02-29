@@ -13,14 +13,14 @@ class Thread extends Model
 		'id',
 		'created_at',
 		'updated_at',
-	]
+	];
 
 	/*
 	 * スレッドに該当するカテゴリID取得
 	 */
 	public function category ()
 	{
-		return $this->belongsTo('App\Category');
+		return $this->belongsTo('App\Category', 'category_id');
 	}
 
 	/**
