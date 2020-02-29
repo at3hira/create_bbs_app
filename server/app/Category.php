@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+	protected $table = 'categorys'; // テーブル名指定 model作成時間違ったため
+	
 	protected $fillable = [
 		'category_name', 
 		'status',
@@ -16,6 +18,6 @@ class Category extends Model
 	 */
 	public function threads ()
 	{
-		return $this->hasMany('App\Thread');
+		return $this->hasManyThrough('App\Comment', 'App\Thread');
 	}
 }
