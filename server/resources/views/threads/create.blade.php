@@ -6,7 +6,8 @@
                 投稿の新規作成
             </h1>
 
-            <form method="POST" action="{{ route('threads.store') }}">
+			<form method="POST" action="{{ route('threads.store') }}" enctype="multipart/form-data" >
+
                 @csrf
 
                 <fieldset class="mb-4">
@@ -47,6 +48,11 @@
 					</div>
 
 					<div class="form-group">
+						<label for="image">画像</label>
+						<input type="file" name="img_url">
+					</div>
+
+					<div class="form-group">
 						<label for="category">
 							カテゴリ
 						</label>
@@ -64,6 +70,16 @@
 						</div>
 
 					</div>
+
+					@if ($errors->any())
+					<div class="alert alert-danger">
+						<ul>
+						@foreach ($errors->all() as $error)
+							<li>{{$error}}</li>
+						@endforeach
+						</ul>
+					</div>
+					@endif
 
 					<div class="mt-5">
                         <a class="btn btn-secondary" href="{{ route('top') }}">

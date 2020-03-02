@@ -27,17 +27,24 @@ class ThreadsController extends Controller
 			'title' => 'required|max:50',
 			'body' => 'required|max:200',
 			'category_id' => 'required|integer',
+			'img_url' => 'required|file|image|mimes:jpeg,png,jpg,gif|max:8192'
 		]);
 
 		// カテゴリデータチェック
 		$category_data = Category::find($params['category_id']);
 		if (empty($category_data->id)) {
 			$error[] = "不正なカテゴリです。";
-			return back()->withInput()->withErrors($error);
+			return back()->withInput();
 		}
 
-		//debug
-		$params['img_url'] = '/test/test.jpg';
+		//image
+		$new_thr_id = Thread::max('id') + 1;
+		//$img_path = storage_path('app/public/thread_img/');
+		$img_path = 'public/thread_img';
+		$img_file = 'thread_'. $new_thr_id. '.jpg';
+
+		$request->img_url->storeAs($img_path, $img_file);
+		$params['img_url'] = str_replace('public/', 'storage/', $img_path. '/'. $img_file);
 
 		Thread::create($params);
 		return redirect()->route('top');

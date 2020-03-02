@@ -12,7 +12,12 @@
                 <div class="card-header">
                     {{ $thread->title }}
                 </div>
-                <div class="card-body">
+				<div class="card-body">
+					@if ($thread->img_url)
+						<figure>
+							<img src="{{ $thread->img_url }}" width="100px" height="100px">
+						</figure>
+					@endif
                     <p class="card-text">
                         {!! nl2br(e(str_limit($thread->body, 200))) !!}
 					</p>
