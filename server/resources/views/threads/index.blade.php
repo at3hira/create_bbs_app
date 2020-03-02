@@ -15,7 +15,10 @@
                 <div class="card-body">
                     <p class="card-text">
                         {!! nl2br(e(str_limit($thread->body, 200))) !!}
-                    </p>
+					</p>
+					<a class="card-link" href="{{ route('threads.show', ['thread' => $thread]) }}">
+						続きを読む
+					</a>
                 </div>
                 <div class="card-footer">
                     <span class="mr-2">
