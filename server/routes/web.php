@@ -17,3 +17,6 @@
 
 Route::get('/', 'ThreadsController@index')->name('top');
 Route::resource('threads', 'ThreadsController', ['only' => ['create', 'store']]);
+Route::resource('threads', 'ThreadsController', ['only' => ['create', 'store', 'show']]);
+Route::resource('comments', 'CommentsController', ['only' => ['store']]);
+Route::resource('threads', 'ThreadsController', ['only' => ['create', 'store', 'show', 'edit', 'update']]);

@@ -20,6 +20,7 @@ class ThreadsController extends Controller
 		return view('threads.create');
 	}
 
+	// スレッド作成
 	public function store(Request $request)
 	{
 		$params = $request->validate([
@@ -41,4 +42,44 @@ class ThreadsController extends Controller
 		Thread::create($params);
 		return redirect()->route('top');
 	}
+
+	public function show($thread_id)
+	{
+		$thread = Thread::findOrFail($thread_id);
+
+		return view('threads.show', [
+			'thread' => $thread,
+		]);
+	}
+
+	public function edit($thread_id) 
+	{
+		$thread = Thread::findOrFail($thread_id);
+
+		return view('threads.edit', [
+			'thread' => $thread,
+		]);
+	}
+
+	// スレッド更新処理
+	public function update($thread_id, Request $request)
+	{
+		$params = $request->validate([
+			'title' => 'required|max:50',
+			'body' => 'required|max:2000',
+			'category_id' => 'integer',
+		]);
+
+		$category_data = Category::find($params['category_id']);
+		if (empty($category_data->id)) {
+			$error[] = "不正なカテゴリです。";
+			return back()->withInput()->withErrors($error);
+		}
+
+		$thread = Thread::findOrFail($thread_id);
+		$thread->fill($params)->save();
+
+		return redirect()->route('threads.show', ['thread' => $thread]);
+	}
+
 }
