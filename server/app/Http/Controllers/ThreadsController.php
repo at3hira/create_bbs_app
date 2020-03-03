@@ -27,7 +27,7 @@ class ThreadsController extends Controller
 			'title' => 'required|max:50',
 			'body' => 'required|max:200',
 			'category_id' => 'required|integer',
-			'img_url' => 'required|file|image|mimes:jpeg,png,jpg,gif|max:8192'
+			'image' => 'required|file|image|mimes:jpeg,png,jpg,gif|max:8192'
 		]);
 
 		// カテゴリデータチェック
@@ -39,12 +39,17 @@ class ThreadsController extends Controller
 
 		//image
 		$new_thr_id = Thread::max('id') + 1;
-		//$img_path = storage_path('app/public/thread_img/');
-		$img_path = 'public/thread_img';
+		$img_path = storage_path('app/public/thread_img/');
 		$img_file = 'thread_'. $new_thr_id. '.jpg';
 
-		$request->img_url->storeAs($img_path, $img_file);
-		$params['img_url'] = str_replace('public/', 'storage/', $img_path. '/'. $img_file);
+		 // Intervention読込
+		\Image::make($params['image'])
+			->resize(1024, null, function($constraint) { // 縦横比保持　横幅のみ1024px
+				$constraint->aspectRatio();
+			})->save($img_path. $img_file);
+		
+		unset($params['image']);
+		$params['img_url'] = str_replace('/var/www/html/storage/app/public/', 'storage/', $img_path. $img_file);
 
 		Thread::create($params);
 		return redirect()->route('top');
