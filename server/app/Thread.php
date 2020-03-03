@@ -26,7 +26,7 @@ class Thread extends Model
 	/**
 	 * スレッドのコメントを取得
 	 */
-	public function comments()
+	public function comment()
 	{
 		return $this->hasMany('App\Comment');
 	}
