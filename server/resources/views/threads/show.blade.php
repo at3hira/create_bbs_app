@@ -13,13 +13,18 @@
             </h1>
 
             <p class="mb-5">
-                {!! nl2br(e($thread->body)) !!}
-            </p>
+                {!! nl2br($thread->body) !!}
+			</p>
+
+			<p class="mb-5">
+				{!! nl2br($thread->tweet_tags) !!}
+			</p>
+
 			<form class="mb-4" method="POST" action="{{ route('comments.store') }}">
 			    @csrf
 
 			    <input
-			        name="post_id"
+			        name="thread_id"
     	    		type="hidden"
     	   		 	value="{{ $thread->id }}"
     			>
@@ -34,9 +39,9 @@
         			    name="body"
         			    class="form-control {{ $errors->has('body') ? 'is-invalid' : '' }}"
         	    		rows="4"
-						>{{ old('body') }}
-					</textarea>
-       				@if ($errors->has('body'))
+					>{{ old('body') }}</textarea>
+
+					@if ($errors->has('body'))
         		    	<div class="invalid-feedback">
         	    		    {{ $errors->first('body') }}
         	    		</div>
@@ -54,7 +59,7 @@
                     コメント
                 </h2>
 
-                @forelse($thread->comments as $comment)
+                @forelse($thread->comment as $comment)
                     <div class="border-top p-4">
                         <time class="text-secondary">
                             {{ $comment->created_at->format('Y.m.d H:i') }}

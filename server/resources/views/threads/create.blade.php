@@ -7,7 +7,6 @@
             </h1>
 
 			<form method="POST" action="{{ route('threads.store') }}" enctype="multipart/form-data" >
-
                 @csrf
 
                 <fieldset class="mb-4">
@@ -48,6 +47,21 @@
 					</div>
 
 					<div class="form-group">
+						<label for="tweet_tags">ツイート埋め込み</label>
+						<textarea
+							id="tweet_tags"
+							name="tweet_tags"
+							class="form-control {{ $errors->has('tweet_tags') ? 'is-invalid' : '' }}"
+							rows=2
+						>{{ old('tweet_tags') }}</textarea>
+						@if ($errors->has('tweet_tags'))
+							<div class="invalid-feedback">
+								{{$errors->first('tweet_tags')}}
+							</div>
+						@endif
+					</div>
+
+					<div class="form-group">
 						<label for="image">画像</label>
 						<input type="file" name="image">
 					</div>
@@ -56,15 +70,6 @@
 						<label for="category">
 							カテゴリ
 						</label>
-						<span>
-						@if ($errors->any())
-							<ul id="error" class="error">
-						@foreach ($errors->all() as $error)
-							{{$error}}
-						@endforeach
-							</ul>
-						@endif
-						</span>
 						<div>
 							<label><input name="category_id" type="radio" value="1">テスト</label>
 						</div>
