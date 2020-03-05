@@ -30,9 +30,9 @@
                         投稿日時 {{ $thread->created_at->format('Y.m.d') }}
                     </span>
 
-                    @if ($thread->comments->count())
+                    @if ($thread->comment->count())
                         <span class="badge badge-primary">
-                            コメント {{ $thread->comments->count() }}件
+                            コメント {{ $thread->comment->count() }}件
                         </span>
                     @endif
                 </div>
