@@ -25,15 +25,15 @@ class ThreadsController extends Controller
 	{
 		$params = $request->validate([
 			'title' => 'required|max:50',
-			'body' => 'required|max:200',
+			'body' => 'required|max:2000',
 			'category_id' => 'required|integer',
-			'image' => 'required|file|image|mimes:jpeg,png,jpg,gif|max:8192'
+			'image' => 'required|file|image|mimes:jpeg,png,jpg,gif|max:8192',
+			'tweet_tags' => 'max:2000',
 		]);
 
 		// カテゴリデータチェック
 		$category_data = Category::find($params['category_id']);
 		if (empty($category_data->id)) {
-			$error[] = "不正なカテゴリです。";
 			return back()->withInput();
 		}
 
@@ -82,10 +82,10 @@ class ThreadsController extends Controller
 			'category_id' => 'integer',
 		]);
 
+		// カテゴリチェック
 		$category_data = Category::find($params['category_id']);
 		if (empty($category_data->id)) {
-			$error[] = "不正なカテゴリです。";
-			return back()->withInput()->withErrors($error);
+			return back()->withInput();
 		}
 
 		$thread = Thread::findOrFail($thread_id);
