@@ -17,7 +17,7 @@ docker-composeでLaravelの環境を構築する。
     $ docker-compose exec php laravel new # laravelプロジェクト作成      
 
 ## 注意点
-	- Bootstrapインストール
+Bootstrapインストール
 		laravel6以降、bootstrapがデフォルトで含まれなくなったためlaravel/uiを使用しインストールする。
 		まずはcomposerを使ってlaravel/uiをインストールするが現時点でlaravel/uiのバージョンが2.x。
 		laravel/ui:2.xにはLaravel7.x以上が必要となりエラーでインストールに失敗するため、旧バージョンをインストール。
