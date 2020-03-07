@@ -1,6 +1,9 @@
-@media screen and (max-width: 480px) {
-  .bg-dark {
-    background-color: red;
-  }
+.navbar {
+  padding: 1rem 1rem;
+}
+
+.navbar div.container {
+  text-align: center;
+  display: block;
 }
 

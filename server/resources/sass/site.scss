@@ -1,4 +1,15 @@
+
+.navbar {
+    padding: 1rem 1rem;
+    div.container {
+        text-align: center;
+        display: block;
+    }
+}
+
+
  $pc: 1024px; // PC
+ $tab: 896px; // TAB
  $sp: 480px;  // SP
 
 @mixin pc {
@@ -6,14 +17,13 @@
     @content;
   }
 }
+@mixin tab {
+  @media screen and (max-width: ($tab)) {
+    @content;
+  }
+}
 @mixin sp {
   @media screen and (max-width: ($sp)) {
     @content;
   }
-}
-
-.bg-dark {
-    @include sp {
-        background-color: red;
-    }
 }
