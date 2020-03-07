@@ -1,0 +1,19 @@
+ $pc: 1024px; // PC
+ $sp: 480px;  // SP
+
+@mixin pc {
+  @media screen and (max-width: ($pc)) {
+    @content;
+  }
+}
+@mixin sp {
+  @media screen and (max-width: ($sp)) {
+    @content;
+  }
+}
+
+.bg-dark {
+    @include sp {
+        background-color: red;
+    }
+}
