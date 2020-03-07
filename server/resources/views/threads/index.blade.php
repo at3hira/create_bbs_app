@@ -37,6 +37,9 @@
                     @endif
                 </div>
             </div>
-        @endforeach
+		@endforeach
+		<div class="time-line">
+			<a class="twitter-timeline" data-width="500" data-height="500" href="https://twitter.com/bakittonews?ref_src=twsrc%5Etfw">Tweets by bakittonews</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+		</div>
     </div>
 @endsection
