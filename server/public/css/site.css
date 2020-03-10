@@ -1,9 +1,94 @@
+@charset "UTF-8";
+
 .navbar {
   padding: 1rem 1rem;
+  font-family: "Lato", "Noto Sans JP", "\30D2\30E9\30AE\30CE\89D2\30B4   ProN", "Hiragino Kaku Gothic ProN", "\FF2D\FF33   \FF30\30B4\30B7\30C3\30AF", "MS PGothic", sans-serif;
 }
 
 .navbar div.container {
   text-align: center;
   display: block;
+}
+
+div .card {
+  min-height: 110px;
+}
+
+div .mb-4 {
+  display: block;
+  margin-bottom: 1rem !important;
+}
+
+figure.thr_thumbnail {
+  margin-top: 0.93rem;
+  margin-right: 0.92rem;
+  margin-bottom: 0.93rem;
+  margin-left: 0.5rem;
+  max-width: 80px;
+  float: left;
+}
+
+img {
+  width: 80px;
+  height: 80px;
+}
+
+p.thread_title {
+  font-size: 13px;
+  font-size: 0.82rem;
+}
+
+a {
+  color: #000;
+}
+
+div.card-meta {
+  font-size: 0.77rem;
+}
+
+.mr-2 {
+  float: left;
+  color: #999;
+}
+
+.badge-primary {
+  font-size: 0.77rem;
+  color: #999;
+  background-color: #fff;
+  font-weight: normal;
+}
+
+@media screen and (min-width: 768px) {
+  figure.thr_thumbnail {
+    max-width: 235px;
+  }
+
+  img {
+    width: 100%;
+    max-width: 235px;
+    height: auto;
+  }
+
+  p.thread_title {
+    font-size: 21px;
+    font-size: 1.35rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  figure.thr_thumbnail {
+    max-width: 235px;
+  }
+
+  img {
+    width: 100%;
+    max-width: 235px;
+    height: auto;
+  }
+
+  p.thread_title {
+    font-size: 21px;
+    font-size: 1.35rem;
+  }
 }
 
