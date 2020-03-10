@@ -9,32 +9,33 @@
 		</div>
         @foreach ($threads as $thread)
             <div class="card mb-4">
-                <div class="card-header">
-                    {{ $thread->title }}
-                </div>
-				<div class="card-body">
-					@if ($thread->img_url)
-						<figure>
-							<img src="{{ $thread->img_url }}" width="100px" height="100px">
-						</figure>
-					@endif
-                    <p class="card-text">
-                        {!! nl2br(e(str_limit($thread->body, 200))) !!}
-					</p>
-					<a class="card-link" href="{{ route('threads.show', ['thread' => $thread]) }}">
-						続きを読む
-					</a>
-                </div>
-                <div class="card-footer">
-                    <span class="mr-2">
-                        投稿日時 {{ $thread->created_at->format('Y.m.d') }}
-                    </span>
+				@if ($thread->img_url)
+					<figure class="thr_thumbnail">
+						<a class="card-link" href="{{ route('threads.show', ['thread' => $thread]) }}">
+							<img src="{{ $thread->img_url }}">
+						</a>	
+					</figure>
+				@endif
 
-                    @if ($thread->comment->count())
+				<div class="card-body">
+					<a class="card-link" href="{{ route('threads.show', ['thread' => $thread]) }}">
+	                    <p class="thread_title">{{ $thread->title }}</p>
+					</a>
+	
+					@if ($device)
+						<p class="card-text">
+    	                    {!! nl2br(e(str_limit($thread->body, 200))) !!}
+						</p>
+					@endif
+					<div class="card-meta">
+	                    <span class="mr-2">
+	                        投稿 {{ $thread->created_at->format('Y.m.d') }}
+	                    </span>
+
                         <span class="badge badge-primary">
                             コメント {{ $thread->comment->count() }}件
-                        </span>
-                    @endif
+       	                </span>
+					</div>	
                 </div>
             </div>
 		@endforeach
