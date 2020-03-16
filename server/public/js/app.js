@@ -49503,7 +49503,10 @@ module.exports = function(module) {
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // create new js file
+
+
+__webpack_require__(/*! ./site */ "./resources/js/site.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
@@ -49640,6 +49643,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/site.js":
+/*!******************************!*\
+  !*** ./resources/js/site.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var activeClass = 'active';
+
+function hamburgBtn() {
+  $('.btn_hamburger').on('click', function (event) {
+    $button = $(this);
+    event.preventDefault();
+    $button.find('a').toggleClass(activeClass);
+    $button.next().slideToggle(250);
+  });
+}
+
+;
+hamburgBtn();
+
+function accordion(triggerSelector) {
+  // 引数で指定したトリガーをクリックしたとき、クリックしたトリガーの次の要素を展開
+  $(triggerSelector).on('click', function (event) {
+    $trigger = $(triggerSelector);
+    event.preventDefault();
+    $(this).toggleClass(activeClass);
+    $(this).next().slideToggle(250);
+  });
+}
+
+; // 引数でトリガーを指定
+
+accordion('#category_accordion .category_list');
 
 /***/ }),
 
