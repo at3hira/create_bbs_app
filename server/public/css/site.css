@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.breadcrumb {
+  background-color: rgba(0, 0, 0, 0);
+}
+
 .navbar {
   padding: 1rem 1rem;
   font-family: "Lato", "Noto Sans JP", "\30D2\30E9\30AE\30CE\89D2\30B4   ProN", "Hiragino Kaku Gothic ProN", "\FF2D\FF33   \FF30\30B4\30B7\30C3\30AF", "MS PGothic", sans-serif;

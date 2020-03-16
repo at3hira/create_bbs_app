@@ -2,6 +2,12 @@
 
 @section('content')
 	<div class="container mt-4">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="/">Top</a></li>
+				<li class="breadcrumb-item active" aria-current="page">{{ $thread->title }}</li>
+			</ol>
+		</nav>
 		<div class="mb-4 text-right">
 		    <a class="btn btn-primary" href="{{ route('threads.edit', ['thread' => $thread]) }}">
 				編集する

@@ -2,7 +2,9 @@
 
 $font: 'Lato', 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
 
-
+.breadcrumb {
+    background-color: rgba(0, 0, 0, 0);
+}
 .navbar {
     padding: 1rem 1rem;
     font-family: $font;
