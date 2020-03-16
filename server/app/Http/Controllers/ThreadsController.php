@@ -20,7 +20,9 @@ class ThreadsController extends Controller
 		} else {
 			$device = true;
 		}
-
+		foreach ($threads as $thread) {
+			$thread->body = str_replace(array("\r\n", "\r", "\n"), ' ', $thread->body);
+		}
 		return view('threads.index', ['threads' => $threads, 'device' => $device]);
 	}
 
