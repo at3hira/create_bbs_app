@@ -2,6 +2,9 @@
 
 $font: 'Lato', 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
 
+.h5 {
+    font-weight: 700;
+}
 .breadcrumb {
     background-color: rgba(0, 0, 0, 0);
 }
@@ -40,6 +43,10 @@ figure.thr_thumbnail {
 img {
     width: 70px;
     height: 70px;
+}
+.thr_show_thumbnail img {
+    width: 100%;
+    height: auto;
 }
 p {
     margin-bottom: 0.25rem;

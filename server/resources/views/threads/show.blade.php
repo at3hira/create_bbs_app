@@ -17,6 +17,9 @@
             <h1 class="h5 mb-4">
                 {{ $thread->title }}
             </h1>
+			<figure class="thr_show_thumbnail">
+				<img src="../{{ $thread->img_url }}">
+			</figure>
 
             <p class="mb-5">
                 {!! nl2br($thread->body) !!}

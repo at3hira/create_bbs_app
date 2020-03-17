@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.h5 {
+  font-weight: 700;
+}
+
 .breadcrumb {
   background-color: rgba(0, 0, 0, 0);
 }
@@ -44,6 +48,11 @@ figure.thr_thumbnail {
 img {
   width: 70px;
   height: 70px;
+}
+
+.thr_show_thumbnail img {
+  width: 100%;
+  height: auto;
 }
 
 p {
