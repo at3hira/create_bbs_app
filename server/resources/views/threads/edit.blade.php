@@ -34,12 +34,14 @@
                         <label for="body">
                             本文
                         </label>
-
+                        <p class="mb-5">
+                            {!! nl2br($thread->body) !!}
+            			</p>
                         <textarea
                             id="body"
                             name="body"
                             class="form-control {{ $errors->has('body') ? 'is-invalid' : '' }}"
-                            rows="4"
+                            rows="8"
                         >{{ old('body') ?: $thread->body }}</textarea>
                         @if ($errors->has('body'))
                             <div class="invalid-feedback">
@@ -47,6 +49,23 @@
                             </div>
                         @endif
                     </div>
+					<div class="form-group">
+						<label for="tweet_tags">ツイート埋め込み</label>
+                        <p class="mb-5">
+                            {!! nl2br($thread->tweet_tags) !!}
+            			</p>
+						<textarea
+							id="tweet_tags"
+							name="tweet_tags"
+							class="form-control {{ $errors->has('tweet_tags') ? 'is-invalid' : '' }}"
+							rows="10"
+						>{{ old('$thread->tweet_tags') ?: $thread->tweet_tags }}</textarea>
+						@if ($errors->has('tweet_tags'))
+							<div class="invalid-feedback">
+								{{$errors->first('tweet_tags')}}
+							</div>
+						@endif
+					</div>
 					<div class="form-group">
 						<label for="category">
 							カテゴリ
