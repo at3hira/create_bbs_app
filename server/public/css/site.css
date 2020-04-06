@@ -1,11 +1,26 @@
 @charset "UTF-8";
 
+body {
+  background-color: #ffffff;
+  font-weight: 700;
+}
+
 .h5 {
   font-weight: 700;
 }
 
+.navbar-brand {
+  font-size: 1.54rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Roboto, "Hiragino Sans", "\30D2\30E9\30AE\30CE\89D2\30B4   ProN W3", "Hiragino Kaku Gothic ProN", Arial, "\30E1\30A4\30EA\30AA", Meiryo, "\FF2D\FF33   \FF30\30B4\30B7\30C3\30AF", "MS PGothic", sans-serif !important;
+}
+
 .breadcrumb {
   background-color: rgba(0, 0, 0, 0);
+  overflow-x: scroll;
+  overflow-y: hidden;
+  transform: translateZ(0);
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .navbar {
@@ -27,32 +42,46 @@ div .mt-4 {
   margin-top: 0px !important;
 }
 
-div .card {
-  min-height: 98px;
-}
-
 div .mb-4 {
   display: block;
-  margin-bottom: 1.25rem !important;
+  margin-bottom: unset !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: unset;
 }
 
-figure.thr_thumbnail {
-  margin-top: 0.93rem;
-  margin-right: 0.92rem;
-  margin-bottom: 0.93rem;
+div .comment {
+  background-color: #ffffff;
+}
+
+.card {
+  min-height: 137px;
+}
+
+.thr_thumbnail {
+  margin-top: 0.87rem;
+  margin-right: 1.2rem;
+  margin-bottom: 0.56rem;
   margin-left: 0.5rem;
-  max-width: 80px;
+  max-width: 127px;
   float: left;
 }
 
+.card-body {
+  padding-right: 7px;
+  padding-left: 7px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
 img {
-  width: 70px;
-  height: 70px;
+  width: 135px;
+  height: 105px;
 }
 
 .thr_show_thumbnail img {
   width: 100%;
   height: auto;
+  margin-top: 1rem;
 }
 
 p {
@@ -60,16 +89,13 @@ p {
 }
 
 p.thread_title {
-  font-size: 13px;
-  font-size: 0.82rem;
+  font-size: 16.8px;
+  font-size: 1.05rem;
+  color: #202020;
 }
 
 a {
   color: #000;
-}
-
-div.card-meta {
-  font-size: 0.77rem;
 }
 
 div.card-meta .mr-2 {
@@ -78,10 +104,37 @@ div.card-meta .mr-2 {
 }
 
 div.card-meta .badge-primary {
-  font-size: 0.77rem;
+  font-size: 0.9rem;
   color: #999;
   background-color: #fff;
   font-weight: normal;
+}
+
+.time_line {
+  width: 100%;
+  padding: 20px 20px 0;
+  text-align: center;
+}
+
+.twitter-timeline {
+  border: 1px solid rgba(0, 0, 0, 0.125) !important;
+}
+
+.comment_section {
+  margin-top: 1.34rem;
+}
+
+form {
+  background-color: #ffffff;
+}
+
+button:not(:disabled),
+[type=submit]:not(:disabled) {
+  width: 100%;
+}
+
+label {
+  font-size: 1.056rem;
 }
 
 #category_accordion {
@@ -155,16 +208,6 @@ div.card-meta .badge-primary {
 
 .btn_hamburger .active span:nth-of-type(3) {
   transform: translateY(-20px) scale(0);
-}
-
-.time_line {
-  width: 100%;
-  padding: 20px 20px 0;
-  text-align: center;
-}
-
-.twitter-timeline {
-  border: 1px solid rgba(0, 0, 0, 0.125) !important;
 }
 
 @media screen and (min-width: 768px) {

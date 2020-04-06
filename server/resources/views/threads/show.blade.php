@@ -8,11 +8,6 @@
 				<li class="breadcrumb-item active" aria-current="page">{{ $thread->title }}</li>
 			</ol>
 		</nav>
-		<div class="mb-4 text-right">
-		    <a class="btn btn-primary" href="{{ route('threads.edit', ['thread' => $thread]) }}">
-				編集する
-			</a>
-		</div>
         <div class="border p-4">
             <h1 class="h5 mb-4">
                 {{ $thread->title }}
@@ -29,6 +24,24 @@
 				{!! nl2br($thread->tweet_tags) !!}
 			</p>
 
+            <div class="comment">
+                <h2 class="h5 mb-4 comment_section">
+                    コメント
+                </h2>
+
+                @forelse($thread->comment as $comment)
+                    <div class="border-top p-4">
+                        <time class="text-secondary">
+                            {{ $comment->created_at->format('Y.m.d H:i') }}
+                        </time>
+                        <p class="mt-2">
+                            {!! nl2br(e($comment->body)) !!}
+                        </p>
+                    </div>
+                @empty
+                    <p>コメントはまだありません。</p>
+                @endforelse
+            </div>
 			<form class="mb-4" method="POST" action="{{ route('comments.store') }}">
 			    @csrf
 
@@ -63,24 +76,6 @@
         			</button>
    		 		</div>
 			</form>
-            <section>
-                <h2 class="h5 mb-4">
-                    コメント
-                </h2>
-
-                @forelse($thread->comment as $comment)
-                    <div class="border-top p-4">
-                        <time class="text-secondary">
-                            {{ $comment->created_at->format('Y.m.d H:i') }}
-                        </time>
-                        <p class="mt-2">
-                            {!! nl2br(e($comment->body)) !!}
-                        </p>
-                    </div>
-                @empty
-                    <p>コメントはまだありません。</p>
-                @endforelse
-            </section>
         </div>
     </div>
 @endsection
