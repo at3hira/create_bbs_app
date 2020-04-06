@@ -12,7 +12,7 @@
 		<section id="category_accordion" class="section_demo section_demo1">
             <div class="target">
                 <ul class="category_list">
-                    <li><a href="#">ITEM 1-1</a></li>
+                    <li><a href="{{ url('') }}">ITEM 1-1</a></li>
                     <li><a href="#">ITEM 1-2</a></li>
                     <li><a href="#">ITEM 1-3</a></li>
                     <li><a href="#">ITEM 1-4</a></li>
@@ -27,18 +27,18 @@
     		</a>
 		</div>
         @foreach ($threads as $thread)
-            <div class="card mb-4">
+            <article class="card mb-4">
 				@if ($thread->img_url)
-					<figure class="thr_thumbnail">
+					<div class="thr_thumbnail">
 						<a class="card-link" href="{{ route('threads.show', ['thread' => $thread]) }}">
 							<img src="{{ $thread->img_url }}">
 						</a>	
-					</figure>
+					</div>
 				@endif
 
 				<div class="card-body">
 					<a class="card-link" href="{{ route('threads.show', ['thread' => $thread]) }}">
-	                    <p class="thread_title">{{ $thread->title }}</p>
+	                    <p class="thread_title">{{ str_limit($thread->title, 60) }}</p>
 					</a>
 	
 					@if ($device)
@@ -48,15 +48,15 @@
 					@endif
 					<div class="card-meta">
 	                    <span class="mr-2">
-	                        投稿 {{ $thread->created_at->format('Y.m.d') }}
+						<i class="far fa-clock"></i> {{ $thread->created_at->format('Y.m.d') }}
 	                    </span>
 
                         <span class="badge badge-primary">
-                            コメント {{ $thread->comment->count() }}件
+						<i class="far fa-comments"></i> {{ $thread->comment->count() }}件
        	                </span>
 					</div>	
                 </div>
-            </div>
+            </article>
 		@endforeach
 		<div class="time_line">
 			<a class="twitter-timeline" data-width="500" data-height="500" href="https://twitter.com/bakittonews?ref_src=twsrc%5Etfw">Tweets by bakittonews</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
