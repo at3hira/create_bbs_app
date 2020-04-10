@@ -49,7 +49,10 @@ class ThreadsController extends Controller
 			return back()->withInput();
 		}
 
-		//image
+		/** 
+		 * image save : storage/app/public/thread_img
+		 * image read : public/storage/thread_img
+		**/
 		$new_thr_id = Thread::max('id') + 1;
 		$img_path = storage_path('app/public/thread_img/');
 		$img_file = 'thread_'. $new_thr_id. '.jpg';
