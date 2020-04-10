@@ -10,7 +10,7 @@ class ThreadsController extends Controller
 {
 	public function index(Request $request)
 	{
-		$threads = Thread::orderBy('created_at', 'desc')->get();
+		$threads = Thread::threadList()->get();
 
 		$user_agent = $request->header('User-Agent');
 		if ((strpos($user_agent, 'iPhone') !== false)
@@ -23,6 +23,7 @@ class ThreadsController extends Controller
 		foreach ($threads as $thread) {
 			$thread->body = str_replace(array("\r\n", "\r", "\n"), ' ', $thread->body);
 		}
+
 		return view('threads.index', ['threads' => $threads, 'device' => $device]);
 	}
 

@@ -30,4 +30,13 @@ class Thread extends Model
 	{
 		return $this->hasMany('App\Comment');
 	}
+
+	/**
+	 * スレッドの一覧を降順で取得
+	 * statusカラムが1のみ
+	 */
+	public function scopeThreadlist($query)
+	{
+		$query->where('status', 1)->orderBy('created_at', 'desc');
+	}
 }
