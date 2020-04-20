@@ -9,14 +9,22 @@
 			</ol>
 		</nav>
         <div class="border p-4">
-            <h1 class="h5 mb-4">
+            <h1 class="h5 mb-4 show-title">
                 {{ $thread->title }}
-            </h1>
+			</h1>
+			<div class="card-meta show-data">
+					<i class="far fa-clock"></i> {{ $thread->created_at->format('Y.m.d') }}
+					<i class="far fa-comments"></i> {{ $thread->comment->count() }}件
+			</div>
+
 			<figure class="thr_show_thumbnail">
 				<img src="../{{ $thread->img_url }}">
 			</figure>
 
-            <p class="mb-5">
+			<div class="subtitle">
+				{{ nl2br($thread->sub_title) }}
+			</div>
+            <p class="mb-5 show-body">
                 {!! nl2br($thread->body) !!}
 			</p>
 

@@ -52,7 +52,7 @@
 							id="tweet_tags"
 							name="tweet_tags"
 							class="form-control {{ $errors->has('tweet_tags') ? 'is-invalid' : '' }}"
-							rows=2
+							rows=8
 						>{{ old('tweet_tags') }}</textarea>
 						@if ($errors->has('tweet_tags'))
 							<div class="invalid-feedback">
@@ -73,8 +73,27 @@
 						<div>
 							<label><input name="category_id" type="radio" value="1">テスト</label>
 						</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sub_title">
+                            見出し
+                        </label>
+                        <input
+                            id="sub_title"
+                            name="sub_title"
+                            class="form-control {{ $errors->has('sub_title') ? 'is-invalid' : '' }}"
+                            value="{{ old('sub_title') }}"
+                            type="text"
+                        >
+                        @if ($errors->has('sub_title'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('sub_title') }}
+                            </div>
+                        @endif
+                    </div>
 
-					</div>
+                    </div>
 
 					@if ($errors->any())
 					<div class="alert alert-danger">
@@ -87,10 +106,6 @@
 					@endif
 
 					<div class="mt-5">
-                        <a class="btn btn-secondary" href="{{ route('top') }}">
-                            キャンセル
-                        </a>
-
                         <button type="submit" class="btn btn-primary">
                             投稿する
                         </button>
