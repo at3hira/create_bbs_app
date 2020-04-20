@@ -10,8 +10,9 @@ class ThreadsController extends Controller
 {
 	public function index(Request $request)
 	{
-		$threads = Thread::threadList()->get();
+		$threads = Thread::threadList()->paginate(10);
 
+		// User-Agentを用いてデバイス判定
 		$user_agent = $request->header('User-Agent');
 		if ((strpos($user_agent, 'iPhone') !== false)
 			|| (strpos($user_agent, 'iPod') !== false)
@@ -40,7 +41,8 @@ class ThreadsController extends Controller
 			'body' => 'required|max:2000',
 			'category_id' => 'required|integer',
 			'image' => 'required|file|image|mimes:jpeg,png,jpg,gif|max:8192',
-			'tweet_tags' => 'max:2000',
+			'tweet_tags' => 'max:6000',
+			'sub_title' => 'required|max:50',
 		]);
 
 		// カテゴリデータチェック
@@ -48,7 +50,6 @@ class ThreadsController extends Controller
 		if (empty($category_data->id)) {
 			return back()->withInput();
 		}
-
 		/** 
 		 * image save : storage/app/public/thread_img
 		 * image read : public/storage/thread_img
@@ -59,9 +60,7 @@ class ThreadsController extends Controller
 
 		 // Intervention読込
 		\Image::make($params['image'])
-			->resize(1024, null, function($constraint) { // 縦横比保持　横幅のみ1024px
-				$constraint->aspectRatio();
-			})->save($img_path. $img_file);
+			->resize(1024, 576)->save($img_path. $img_file);
 		
 		unset($params['image']);
 		$params['img_url'] = str_replace('/var/www/html/storage/app/public/', 'storage/', $img_path. $img_file);
