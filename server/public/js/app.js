@@ -49503,10 +49503,7 @@ module.exports = function(module) {
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // create new js file
-
-
-__webpack_require__(/*! ./site */ "./resources/js/site.js");
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
@@ -49646,46 +49643,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/site.js":
-/*!******************************!*\
-  !*** ./resources/js/site.js ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-$(function () {
-  var activeClass = 'active'; // ハンバーガーボタン
-
-  function hamburgBtn() {
-    $('.btn_hamburger').on('click', function (event) {
-      $button = $(this);
-      event.preventDefault();
-      $button.find('a').toggleClass(activeClass); // ハンバーガーボタンのアニメーション
-
-      $button.next().slideToggle(250); // 表示、非表示
-    });
-  }
-
-  ;
-  hamburgBtn();
-
-  function accordion(triggerSelector) {
-    // 引数で指定したトリガーをクリックしたとき、クリックしたトリガーの次の要素を展開
-    $(triggerSelector).on('click', function (event) {
-      $trigger = $(triggerSelector);
-      event.preventDefault();
-      $(this).toggleClass(activeClass);
-      $(this).next().slideToggle(250);
-    });
-  }
-
-  ; // 引数でトリガーを指定
-
-  accordion('#category_accordion .category_list');
-});
-
-/***/ }),
-
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -49697,27 +49654,15 @@ $(function () {
 
 /***/ }),
 
-/***/ "./resources/sass/site.scss":
-/*!**********************************!*\
-  !*** ./resources/sass/site.scss ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ 0:
-/*!****************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/site.scss ***!
-  \****************************************************************************************/
+/*!*************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /var/www/html/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /var/www/html/resources/sass/app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! /var/www/html/resources/sass/site.scss */"./resources/sass/site.scss");
+module.exports = __webpack_require__(/*! /var/www/html/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
