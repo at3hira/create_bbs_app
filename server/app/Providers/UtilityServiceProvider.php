@@ -4,20 +4,23 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class UtilityServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Register services.
      *
      * @return void
      */
     public function register()
     {
-        $this->app->bind('App\Services\UtilityService');
+        $this->app->bind(
+            'UtilityService', // key
+            'App\Services\UtilityService' //Service class name
+        );
     }
 
     /**
-     * Bootstrap any application services.
+     * Bootstrap services.
      *
      * @return void
      */
