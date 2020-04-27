@@ -14,4 +14,28 @@ class UtilityService
             return true;
         }
     }
+
+    /**
+     * サムネイル保存用function
+     * 新規スレッドidを含むファイルパスを生成
+     * image save : storage/app/public/thread_img
+     * image read : public/storage/thread_img
+     * 
+     * @param int $thr_id
+     * @param Object $image
+     * @return string
+    **/
+    public function save_thumbnail($thr_id, $image)
+    {
+        $img_path = storage_path('app/public/thread_img/');
+		$img_file = 'thread_'. $thr_id. '.jpg';
+
+		 // Intervention読込
+		\Image::make($image)
+			->resize(1024, 576)->save($img_path. $img_file);
+		
+        unset($image);
+ 		return str_replace('/var/www/html/storage/app/public/', 'storage/', $img_path. $img_file);
+
+    }
 }

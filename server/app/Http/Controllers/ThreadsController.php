@@ -45,20 +45,9 @@ class ThreadsController extends Controller
 		if (empty($category_data->id)) {
 			return back()->withInput();
 		}
-		/** 
-		 * image save : storage/app/public/thread_img
-		 * image read : public/storage/thread_img
-		**/
-		$new_thr_id = Thread::max('id') + 1;
-		$img_path = storage_path('app/public/thread_img/');
-		$img_file = 'thread_'. $new_thr_id. '.jpg';
-
-		 // Intervention読込
-		\Image::make($params['image'])
-			->resize(1024, 576)->save($img_path. $img_file);
-		
+		$new_thr_id = Thread::max('id') + 1;		
+		$params['img_url'] = \UtilityService::save_thumbnail($new_thr_id, $params['image']);
 		unset($params['image']);
-		$params['img_url'] = str_replace('/var/www/html/storage/app/public/', 'storage/', $img_path. $img_file);
 
 		Thread::create($params);
 		return redirect()->route('top');
