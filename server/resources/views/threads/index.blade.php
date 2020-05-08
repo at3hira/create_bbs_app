@@ -55,11 +55,12 @@
 					</article>
 				@else
 --}}
+
 					<article class="card mb-4">
 						@if ($thread->img_url)
 							<div class="thr_thumbnail">
 								<a class="card-link" href="{{ route('threads.show', ['thread' => $thread]) }}">
-									<img src="{{ $thread->img_url }}">
+									<img src="{{ \Config::get('app.imagePATH') }}/{{ $thread->img_url }}">
 								</a>	
 							</div>
 						@endif

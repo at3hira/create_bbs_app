@@ -18,7 +18,7 @@
 			</div>
 
 			<figure class="thr_show_thumbnail">
-				<img src="../{{ $thread->img_url }}">
+				<img src="{{ \Config::get('app.imagePATH') }}/{{ $thread->img_url }}">
 			</figure>
 
 			<div class="subtitle">

@@ -123,6 +123,11 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+
+    /* 
+    |  Add Environment variable
+    */
+    'imagePATH' => env('IMAGE_PATH'),
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
