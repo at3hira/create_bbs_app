@@ -24,5 +24,5 @@ Route::resource('threads', 'ThreadsController', ['only' => ['create', 'store', '
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/ope', 'HomeController@index');
 });
