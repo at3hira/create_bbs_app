@@ -26,3 +26,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/ope', 'HomeController@index');
 });
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
