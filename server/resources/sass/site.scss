@@ -1,32 +1,13 @@
 @charset "utf-8";
 
 $font: 'Lato', 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
-.mc {
-    background-color: #F0F0F0;
-}
+
 body {
-    background-color: #ffffff;
+    background-color: hsl(0, 0%, 100%);
+    max-width:100%;
     font-weight: 700;
 }
-.bg-dark{
-    background-color: white !important;
-}
-.navbar-dark .navbar-brand {
-    color: #343a40;
-}
 
-.navbar-brand {
-    font-size: 1.54rem;
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Roboto, "Hiragino Sans", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Arial, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif!important;
-}
-.breadcrumb {
-    background-color: rgba(0, 0, 0, 0);
-    overflow-x: scroll;
-    overflow-y: hidden;
-    transform: translateZ(0);
-    flex-wrap: nowrap;
-    white-space: nowrap;
-}
 .navbar {
     padding: 1rem 1rem;
     font-family: $font;
@@ -35,24 +16,45 @@ body {
         display: block;
     }
 }
+
+.navbar-dark .navbar-brand {
+    color: #343a40;
+    max-width: 88%;
+}
+.bg-dark{
+    background-color: white !important;
+}
+
+.navbar-brand {
+    font-size: 1.54rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Roboto, "Hiragino Sans", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Arial, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif!important;
+}
+
+.breadcrumb {
+    background-color: rgba(0, 0, 0, 0);
+    overflow-x: scroll;
+    overflow-y: hidden;
+    transform: translateZ(0);
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    border-bottom: 1px solid #dee2e6 !important;
+}
+
+.border {
+    border: 0 !important;
+    border-bottom: 1px solid #dee2e6 !important;
+    background-color: white;
+}
+
+.p-4 {
+    padding: 0rem !important;
+}
+
+.mb-4 {
+    margin-bottom: 0.75rem !important;
+}
+
 div {
-    .mc-wrapper {
-        padding-right: 1px;
-        padding-left: 1px;
-        padding-top: 2rem;
-    }
-    .mt-4 {
-        margin-top: 0px !important;
-    }
-    .card {
-        display: block;
-        margin-bottom: unset !important;
-        border: unset;
-        border-bottom: 1px solid #ebebeb;
-        border-radius: unset;
-        position: relative;
-        min-height: 154px;
-    }
     .comment {
         background-color: #ffffff;
     }    
@@ -65,23 +67,8 @@ div {
         margin-top: 0.5rem;
         margin-right: 0.34rem;
     }
-    .thr_thumbnail {
-        margin-top: 0.87rem;
-        margin-right: 1.2rem;
-        margin-bottom: 0.56rem;
-        margin-left: 0.5rem;
-        max-width: 127px;
-        float: left;
-    }
     .top_list {
         max-height: 233px;
-    }
-    .card-body {
-        padding-right: 7px;
-        padding-left: 7px;
-        padding-top: 16px;
-        padding-bottom: 16px;
-        max-width: 95%;
     }
     .topthumbnail {
         min-height: 234px;
@@ -95,11 +82,52 @@ div {
         color: white;
     }
 }
+.mt-4 {
+    margin-top: 0px !important;
+}
 
+.card {
+    display: flex;
+    margin-bottom: unset !important;
+    border: unset;
+    border-bottom: 1px solid #ebebeb;
+//    border-radius: unset;
+//    position: relative;
+    min-height: 120px;
+}
+
+.mc-wrapper {
+    padding-right: 1px;
+    padding-left: 1px;
+    padding-top: 2rem;
+    background-color: #F0F0F0;
+    font-family: $font;
+}
+
+.thr_thumbnail {
+    margin-top: 0.87rem;
+//    margin-right: 1.2rem;
+//    margin-bottom: 0.56rem;
+//    margin-left: 0.5rem;
+    max-width: 22%;
+    display: inline-block;
+}
+.card-body {
+    padding-right: 7px;
+    padding-left: 7px;
+//    padding-top: 16px;
+//    padding-bottom: 16px;
+    max-width: 75%;
+    display: inline-block;
+    line-height:1;
+    vertical-align: top;
+
+}
 
 img {
-    width: 135px;
-    height: 105px;
+    width: 100%;
+    height: 75px;
+    vertical-align:-40%;
 }
 .top_image{
     width: 100%;
@@ -119,9 +147,14 @@ p.card-text{
     font-size: 0.5rem;
 }
 .thread_title {
-    font-size:16.8px;
-    font-size:1.05rem;
-    color: #495355;
+    font-size:13px;
+    font-size:0.82rem;
+    font-weight: 700;
+    font-variant-caps:normal;
+    font-variant-east-asian:normal;
+    font-variant-ligatures:normal;
+    font-variant-numeric:normal;
+    color: #444444;
 }
 .top_thr {
     position: absolute;
@@ -172,11 +205,14 @@ label {
 }
 .show-title {
     font-weight: 700;
-    font-size: 1.725rem;
+    font-size: 1.15rem;
+    color: #444444;
 }
 .show-data {
     border-top: solid 0.02rem #DFEDEF !important;
     border-bottom: solid 1px #DFEDEF !important;
+    font-size: 0.69rem;
+    color: #999999;
 }
 
 .show-body {
@@ -185,136 +221,29 @@ label {
     font-size: 1.03rem;
 }
 
-.border {
-    border: 0 !important;
-    border-top: 1px solid #dee2e6 !important;
-    border-bottom: 1px solid #dee2e6 !important;
-    background-color: white;
-}
 .subtitle{
     border-left: 5px solid #5bbee5;
     padding-left: 10px;
     margin-top: 2.23rem;
-    font-size: 1.534rem;
+    font-size: 1.03rem;
     color: #4C5252;
 }
 
-// アコーディオンメニュー
-#category_accordion {
-    display: none;
-    ul.category_list {
-        list-style: none;
-    }
+.p{
+    line-height: 1;
 }
 
-.btn_hamburger {
-    margin: 0.5rem 0 1rem 0.6rem !important;
-    width: 40px;
-}
-.btn_hamburger a {
-    position: relative;
-    display: block;
-    height: 30px;
-    -webkit-transition: all .4s;
-    transition: all .4s;
-    box-sizing: border-box;
-}
-.btn_hamburger span {
-    position: absolute;
-    display: inline-block;
-    left: 0;
-    width: 65%;
-    height: 2px;
-    background-color: #161b1d;
-    border-radius: 2px;
-    -webkit-transition: all .4s;
-    transition: all .4s;
-    box-sizing: border-box;
-}
-
-.btn_hamburger span:nth-of-type(1) {
-    top: 10px;
-}
-.btn_hamburger span:nth-of-type(2) {
-    top: 16.4px;
-}
-.btn_hamburger span:nth-of-type(3) {
-    bottom: 3px;
-}
-.btn_hamburger span:nth-of-type(2)::after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    content: '';
-    width: 100%;
-    height: 2px;
-    background-color: #161b1d;
-    border-radius: 2px;
-    -webkit-transition: all .4s;
-    transition: all .4s;
-}
-.btn_hamburger .active span:nth-of-type(2) {
-    -webkit-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-}
-.btn_hamburger .active span:nth-of-type(2)::after {
-    -webkit-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
-}
-.btn_hamburger .active span:nth-of-type(1) {
-    -webkit-transform: translateY(20px) scale(0);
-    -ms-transform: translateY(20px) scale(0);
-    transform: translateY(20px) scale(0);
-}
-.btn_hamburger .active span:nth-of-type(3) {
-    -webkit-transform: translateY(-20px) scale(0);
-    -ms-transform: translateY(-20px) scale(0);
-    transform: translateY(-20px) scale(0);
-}
-
-.search-text{
-    position:absolute;
-    z-index:1;
-    top: 95px;
-    right: 6px;
-    text-align: left;
-    height: 28px;
-    width:2em;
-    transition: all .6s ease;
-    border-bottom:none;
-    border-right:none;
-    border-left:none;
-    border-top:none;
-    border-radius:0px;
-    background: transparent;
-    
-}
-.search-text:focus{
-    width:12em;
-    background:white;
-    border-radius:3px;
-    position:absolute;
-    top:95px;
-    right:40px;
-}
-.fa-search{
-    font-size: 1.45rem;
-    position: absolute;
-    top: 95px;
-    right: 6px;
+.far {
+    color: #7ED1E6;
 }
     
 //幅768px以上に適用されるCSS（タブレット用ブレイクポイント）
-@media screen and (min-width:768px){
-    .mc-wrapper {
-        max-width: 95%;
-        margin-right: auto;
-        margin-left: auto;
-    }
+@media screen and (min-width:704px){
+//    .mc-wrapper {
+//        max-width: 95%;
+//    }
     .container {
-        width: 67%;
+        width: 87%;
         max-width: 580px;
     }
     figure.thr_thumbnail {
@@ -352,14 +281,12 @@ label {
 
 //幅990px以上に適用されるCSS（PC用ブレイクポイント）
 @media screen and (min-width:990px){
-    .mc-wrapper {
-        max-width: 95%;
-        margin-right: auto;
-        margin-left: auto;
-    }
+    //    .mc-wrapper {
+//        max-width: 95%;
+//    }
     .container {
-        width: 67%;
-        max-width: 680px;
+        width: 89%;
+        max-width: 697px;
     }
     figure.thr_thumbnail {
         max-width: 235px;
