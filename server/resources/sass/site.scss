@@ -6,10 +6,21 @@ body {
     background-color: hsl(0, 0%, 100%);
     max-width:100%;
     font-weight: 700;
+    display: grid;
+    grid-template: 
+        "header"
+        "main"
+        "right"
+        "footer";
+}
+$areas: header, main, right, footer;
+@each $area in $areas {
+    .#{$area} {
+        grid-area: #{$area}
+    }
 }
 
 .navbar {
-    padding: 1rem 1rem;
     font-family: $font;
     div.container {
         text-align: center;
@@ -29,6 +40,10 @@ body {
     font-size: 1.54rem;
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Roboto, "Hiragino Sans", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Arial, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif!important;
 }
+.container {
+    max-width: 90%;
+    padding: 0px;
+}
 
 .breadcrumb {
     background-color: rgba(0, 0, 0, 0);
@@ -37,13 +52,20 @@ body {
     transform: translateZ(0);
     flex-wrap: nowrap;
     white-space: nowrap;
-    border-bottom: 1px solid #dee2e6 !important;
+    padding: 0.23rem;
+    padding-inline-start: 2px;
+    font-size: 0.65rem;
+}
+
+.breadcrumb-item, .fa-home, .breadcrumb-item::before {
+    color: #999999 !important;
 }
 
 .border {
     border: 0 !important;
     border-bottom: 1px solid #dee2e6 !important;
     background-color: white;
+    margin-top: 30px;
 }
 
 .p-4 {
@@ -183,6 +205,7 @@ a {
 }
 nav {
     margin: 0.5rem auto;
+    background-color: #ececec;
 }
 .twitter-timeline {
     border: 1px solid rgba(0, 0, 0, 0.125) !important;
@@ -209,16 +232,20 @@ label {
     color: #444444;
 }
 .show-data {
-    border-top: solid 0.02rem #DFEDEF !important;
     border-bottom: solid 1px #DFEDEF !important;
     font-size: 0.69rem;
     color: #999999;
 }
 
 .show-body {
-    font-weight: 200;
-    margin: 3rem 0 !important;
-    font-size: 1.03rem;
+    font-weight: lighter;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem !important;
+    font-size: 0.94rem;
+    font-family: $font;
+    color: #494848;
+    text-align: justify;
+    letter-spacing: 0.2rem;
 }
 
 .subtitle{
@@ -236,9 +263,25 @@ label {
 .far {
     color: #7ED1E6;
 }
+.twitter-tweet {
+    width: 100% !important;
+}
     
 //幅768px以上に適用されるCSS（タブレット用ブレイクポイント）
 @media screen and (min-width:704px){
+    body {
+        grid-template: 
+            "header header"
+            "main right"
+            "footer footer"
+            / 3fr 1fr;;
+    }
+    $areas: header, main, right, footer;
+    @each $area in $areas {
+        .#{$area} {
+            grid-area: #{$area}
+        }
+    }
 //    .mc-wrapper {
 //        max-width: 95%;
 //    }
@@ -248,6 +291,9 @@ label {
     }
     figure.thr_thumbnail {
         max-width: 235px;
+    }
+    .thr_thumbnail {
+        max-width: 25%;
     }
     div  {
         .topthumbnail {
@@ -281,6 +327,19 @@ label {
 
 //幅990px以上に適用されるCSS（PC用ブレイクポイント）
 @media screen and (min-width:990px){
+    body {
+        grid-template: 
+            "header header"
+            "main right"
+            "footer footer"
+            / 3fr 1fr;;
+    }
+    $areas: header, main, right, footer;
+    @each $area in $areas {
+        .#{$area} {
+            grid-area: #{$area}
+        }
+    }
     //    .mc-wrapper {
 //        max-width: 95%;
 //    }

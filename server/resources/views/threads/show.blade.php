@@ -1,10 +1,10 @@
 @extends('layout')
 
 @section('content')
-	<div class="container mt-4">
+	<main class="container mt-4 main">
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="/">Top</a></li>
+				<li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i></a></li>
 				<li class="breadcrumb-item active" aria-current="page">{{ $thread->title }}</li>
 			</ol>
 		</nav>
@@ -21,14 +21,15 @@
 				<img src="{{ \Config::get('app.imagePATH') }}/{{ $thread->img_url }}">
 			</figure>
 
-			<div class="subtitle">
-				{{ nl2br($thread->sub_title) }}
-			</div>
-            <p class="mb-5 show-body">
+			<p class="mb-5 show-body">
                 {!! nl2br($thread->body) !!}
 			</p>
 
-			<p class="mb-5">
+			<div class="subtitle">
+				{{ nl2br($thread->sub_title) }}
+			</div>
+
+			<p class="mb-5 embed-tweet">
 				{!! nl2br($thread->tweet_tags) !!}
 			</p>
 
@@ -85,5 +86,9 @@
    		 		</div>
 			</form>
         </div>
-    </div>
+	</main>
+	<aside class="right">
+		aside
+	</aside>
+
 @endsection
