@@ -18,7 +18,6 @@
 						@endif
 						<div class="card-meta">
 							<i class="far fa-clock"></i> {{ $thread->created_at->format('Y/m/d') }}
-							<i class="far fa-comments"></i> {{ $thread->sub_title }}
 						</div>	
 					</div>
 				</a>	
