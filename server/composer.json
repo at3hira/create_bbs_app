@@ -16,7 +16,8 @@
         "laravel/helpers": "^1.1",
         "laravel/tinker": "^2.0",
         "laravel/ui": "v1.2.0",
-        "tcg/voyager": "^1.4"
+        "tcg/voyager": "^1.4",
+        "weidner/goutte": "^1.5"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
