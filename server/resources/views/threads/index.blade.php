@@ -2,6 +2,11 @@
 
 @section('content')
 <main class="mc-wrapper main">
+	@for($i = 0; $i < count($news_list); $i++)
+		<a href="{{ $news_link[$i] }}">
+			<p>{{ $news_list[$i] }}</p>
+		</a>
+	@endfor
 	<article class="container mt-4">
 		@foreach ($threads as $thread)
 			<section class="card mb-4">

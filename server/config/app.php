@@ -180,6 +180,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\UtilityServiceProvider::class,
+        Weidner\Goutte\GoutteServiceProvider::class, 
 
 		/*
 		 * Intervention Image
@@ -238,6 +239,6 @@ return [
 		'View' => Illuminate\Support\Facades\View::class,
 		'Image' => Intervention\Image\Facades\Image::class,
         'UtilityService' => App\Facades\UtilityService::class,
+        'Goutte' => Weidner\Goutte\GoutteFacade::class,
     ],
-
 ];
