@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Thread;
 use App\Category;
-use Weidner\Goutte\GoutteFacade as GoutteFacade;
+use Redis;
 
 class ThreadsController extends Controller
 {
@@ -20,17 +20,8 @@ class ThreadsController extends Controller
 		foreach ($threads as $thread) {
 			$thread->body = str_replace(array("\r\n", "\r", "\n"), ' ', $thread->body);
 		}
-
-		/*
-		* Goutteを使ってYahooトップニュースをスクレイピング
-		*/ 
-		$news_link = array();
-		$news_list = array();
-		$goutte = GoutteFacade::request('GET', 'https://news.yahoo.co.jp/');
-		$goutte->filter('.topicsListItem ')->each(function ($node) use (&$news_list, &$news_link) {
-			$news_link = $node->filter('a')->attr('href');
-			$news_list[] = $node->text();
-		});
+		$news_list = json_decode(Redis::command('get', ['news_list']));
+		$news_link = json_decode(Redis::command('get', ['news_link']));
 
 		$params = [
 			'threads' => $threads,
