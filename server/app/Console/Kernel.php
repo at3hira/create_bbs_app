@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
          $schedule->command('command:scrapecommand')
-                  ->hourlyAt(9);
+                  ->hourlyAt(10);
     }
 
     /**
