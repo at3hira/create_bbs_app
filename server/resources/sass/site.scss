@@ -33,13 +33,16 @@ $areas: header, main, right, footer;
     max-width: 88%;
 }
 .bg-dark{
-    background-color: white !important;
+    background-color: #eeecec !important;
+    
 }
 
 .navbar-brand {
     font-size: 1.54rem;
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Roboto, "Hiragino Sans", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Arial, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif!important;
+
 }
+
 .container {
     max-width: 90%;
     padding: 0px;
@@ -48,13 +51,11 @@ $areas: header, main, right, footer;
 .breadcrumb {
     background-color: rgba(0, 0, 0, 0);
     overflow-x: scroll;
-    overflow-y: hidden;
-    transform: translateZ(0);
     flex-wrap: nowrap;
     white-space: nowrap;
     padding: 0.23rem;
     padding-inline-start: 2px;
-    font-size: 0.65rem;
+    font-size: 0.71rem;
 }
 
 .breadcrumb-item, .fa-home, .breadcrumb-item::before {
@@ -92,13 +93,10 @@ div {
     .top_list {
         max-height: 233px;
     }
-    .topthumbnail {
-        min-height: 234px;
-    }
     .card-meta {
         color: #b8caca;
         width: 100%;
-        font-size: 0.65rem;
+        font-size: 0.85rem;
     }
 
     .top_meta_font {
@@ -114,8 +112,6 @@ div {
     margin-bottom: unset !important;
     border: unset;
     border-bottom: 1px solid #ebebeb;
-//    border-radius: unset;
-//    position: relative;
     min-height: 120px;
 }
 
@@ -123,28 +119,20 @@ div {
     padding-right: 1px;
     padding-left: 1px;
     padding-top: 2rem;
-    background-color: #F0F0F0;
     font-family: $font;
 }
 
-.thr_thumbnail {
+.thr_thumbnail, .latest-thumbnail{
     margin-top: 0.87rem;
-//    margin-right: 1.2rem;
-//    margin-bottom: 0.56rem;
-//    margin-left: 0.5rem;
-    max-width: 22%;
+    max-width: 24%;
     display: inline-block;
 }
-.card-body {
-    padding-right: 7px;
-    padding-left: 7px;
-//    padding-top: 16px;
-//    padding-bottom: 16px;
+.card-body, .latest-body {
     max-width: 75%;
     display: inline-block;
     line-height:1;
     vertical-align: top;
-
+    padding: 1.25rem 0.2rem !important;
 }
 
 img {
@@ -168,16 +156,13 @@ p {
 p.card-text{
     color: #999;
     font-size: 0.5rem;
+    margin-top: 1rem;
 }
 .thread_title {
     font-size:13px;
-    font-size:0.82rem;
+    font-size:0.92rem;
     font-weight: 700;
-    font-variant-caps:normal;
-    font-variant-east-asian:normal;
-    font-variant-ligatures:normal;
-    font-variant-numeric:normal;
-    color: #444444;
+    color: #6d6a6a;
 }
 .top_thr {
     position: absolute;
@@ -265,8 +250,8 @@ label {
     width: 100% !important;
 }
     
-//幅768px以上に適用されるCSS（タブレット用ブレイクポイント）
-@media screen and (min-width:704px){
+//幅769px以上に適用されるCSS（タブレット用ブレイクポイント）
+@media screen and (min-width:769px){
     body {
         grid-template: 
             "header header"
@@ -280,9 +265,6 @@ label {
             grid-area: #{$area}
         }
     }
-//    .mc-wrapper {
-//        max-width: 95%;
-//    }
     .container {
         width: 87%;
         max-width: 580px;
@@ -293,38 +275,14 @@ label {
     .thr_thumbnail {
         max-width: 25%;
     }
-    div  {
-        .topthumbnail {
-            min-height: 234px;
-        }
-    }
     img {
         width: 125px;
         height: 115px;
     }
-    p.top_thr {
-        color: white;
-    }
-    p.card-text{
-        color: #8babab;
-        font-size: 0.5rem;
-    }
-    .btn_hamburger a{
-        margin-top: 11px;
-    }
-    .btn_hamburger span:nth-of-type(1) {
-        top: 8px;
-    }
-    .btn_hamburger span:nth-of-type(2) {
-        top: 17px;
-    }
-    .btn_hamburger span:nth-of-type(3) {
-        bottom: 3px;
-    }
 }
 
-//幅990px以上に適用されるCSS（PC用ブレイクポイント）
-@media screen and (min-width:990px){
+//幅1024px以上に適用されるCSS（PC用ブレイクポイント）
+@media screen and (min-width:1024px){
     body {
         grid-template: 
             "header header"
@@ -338,38 +296,44 @@ label {
             grid-area: #{$area}
         }
     }
-    //    .mc-wrapper {
-//        max-width: 95%;
-//    }
+    .latest-items {
+        max-width: 33%;
+        display: inline-block;
+        height: 260px;
+        vertical-align: top;
+        
+    }
+    .latest-body {
+        padding: 7px;
+        max-width: 100%;
+        line-height:1;
+        vertical-align: top; 
+        display: block;
+    }
+    .latest-thumbnail {
+        width: 100%;
+        max-width: 100%;
+        img {
+           width: 100%; 
+           height: 150px;;
+        }
+    }
     .container {
         width: 89%;
         max-width: 697px;
     }
-    figure.thr_thumbnail {
-        max-width: 235px;
+    .navbar-brand:hover, .thread_title:hover {
+        background: radial-gradient(#F2B9A1, #EA6264);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
     div  {
         .card {
             min-height: 154px;
         }
-        .topthumbnail {
-            min-height: 234px;
-        }
-    }    img {
+    }    
+    img {
         width: 125px;
         height: 115px;
-    }
- 
-    .btn_hamburger a{
-        margin-top: 11px;
-    }
-    .btn_hamburger span:nth-of-type(1) {
-        top: 8px;
-    }
-    .btn_hamburger span:nth-of-type(2) {
-        top: 15.4px;
-    }
-    .btn_hamburger span:nth-of-type(3) {
-        bottom: 3px;
     }
 }
