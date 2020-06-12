@@ -18,7 +18,8 @@ class ThreadsController extends Controller
 		$device = \UtilityService::judge_device($user_agent);
 
 		foreach ($threads as $thread) {
-			$thread->body = str_replace(array("\r\n", "\r", "\n"), ' ', $thread->body);
+			$body = str_replace(array("\r\n", "\r", "\n"), ' ', $thread->body);
+			$thread->body = strip_tags($body);
 		}
 		$news_list = json_decode(Redis::command('get', ['news_list']));
 		$news_link = json_decode(Redis::command('get', ['news_link']));
