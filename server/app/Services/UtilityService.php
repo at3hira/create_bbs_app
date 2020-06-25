@@ -4,10 +4,16 @@ namespace App\Services;
 
 class UtilityService
 {
+    /** 
+     * デバイス判定
+     * @param string $ua ユーザーエージェント
+     * @return boolean PC:true iPhone|iPad|Android|iPod:false
+     **/
     public function judge_device($ua)
     {
         if ((strpos($ua, 'iPhone') !== false)
             || (strpos($ua, 'iPod') !== false)
+            || (strpos($ua, 'iPad') !== false)
             || (strpos($ua, 'Android') !== false)) {
             return false;
         } else {
