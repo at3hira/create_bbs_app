@@ -29,11 +29,10 @@ $areas: header, main, right, footer;
 }
 
 .navbar-dark .navbar-brand {
-    color: #343a40;
     max-width: 88%;
 }
 .bg-dark{
-    background-color: #eeecec !important;
+    background-color: #64c1dc !important;
     
 }
 
@@ -94,7 +93,7 @@ div {
         max-height: 233px;
     }
     .card-meta {
-        color: #b8caca;
+        color: #7cc8e9;
         width: 100%;
         font-size: 0.85rem;
     }
@@ -119,20 +118,21 @@ div {
     padding-right: 1px;
     padding-left: 1px;
     padding-top: 2rem;
-    font-family: $font;
+    font-family: '游ゴシック', YuGothic, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;;
 }
 
 .thr_thumbnail, .latest-thumbnail{
     margin-top: 0.87rem;
-    max-width: 24%;
+    width: 85px;
+    height: 85px;
     display: inline-block;
 }
 .card-body, .latest-body {
-    max-width: 75%;
+    max-width: 70%;
     display: inline-block;
     line-height:1;
     vertical-align: top;
-    padding: 1.25rem 0.2rem !important;
+    padding: 0.87rem 0.2rem;
 }
 
 img {
@@ -162,23 +162,7 @@ p.card-text{
     font-size:13px;
     font-size:0.92rem;
     font-weight: 700;
-    color: #6d6a6a;
-}
-.top_thr {
-    position: absolute;
-    color: white;
-    bottom: 25px;
-    left: 15px;
-}
-.top_meta {
-    position: absolute;
-    color: white;
-    bottom: 10px;
-    left: 15px;
-}
-
-a {
-    color: #000;
+    color: #00141b;
 }
 
 .time_line {
@@ -188,7 +172,6 @@ a {
 }
 nav {
     margin: 0.5rem auto;
-    background-color: #ececec;
 }
 .twitter-timeline {
     border: 1px solid rgba(0, 0, 0, 0.125) !important;
@@ -239,31 +222,35 @@ label {
     color: #4C5252;
 }
 
-.p{
-    line-height: 1;
-}
-
-.far {
-    color: #7ED1E6;
-}
 .twitter-tweet {
     width: 100% !important;
 }
-    
+
+.meta-date {
+    font-size: 0.54rem;
+    color: #bac0c3;
+}
+ 
+.footer {
+    background-color: #64c1dc;
+}
 //幅769px以上に適用されるCSS（タブレット用ブレイクポイント）
-@media screen and (min-width:769px){
+@media screen and (min-width:560px){
     body {
         grid-template: 
-            "header header"
-            "main right"
-            "footer footer"
-            / 3fr 1fr;;
+            "header"
+            "main"
+            "right"
+            "footer"
     }
     $areas: header, main, right, footer;
     @each $area in $areas {
         .#{$area} {
             grid-area: #{$area}
         }
+    }
+    .main {
+        background-color: #f4f5f6;
     }
     .container {
         width: 87%;
@@ -272,17 +259,34 @@ label {
     figure.thr_thumbnail {
         max-width: 235px;
     }
+    .latest-thumbnail {
+        width: 200px;
+        height: 115px;
+        img {
+           width: 100%; 
+           height: 100%;
+        }
+    }
     .thr_thumbnail {
-        max-width: 25%;
+        width: 180px;
+        height: 105px;
+        margin: 0.87rem;
     }
     img {
-        width: 125px;
-        height: 115px;
+        width: 100%;
+        height: 100%;
+    }
+    .thread_title {
+        font-size: 1.13rem;
+        color: #333333;
+    }
+    .card-body {
+        max-width: 55%;
     }
 }
 
 //幅1024px以上に適用されるCSS（PC用ブレイクポイント）
-@media screen and (min-width:1024px){
+@media screen and (min-width:960px){
     body {
         grid-template: 
             "header header"
@@ -296,12 +300,18 @@ label {
             grid-area: #{$area}
         }
     }
+    .main {
+        background-color: #f4f5f6;
+    }
+
+    .mb-4 {
+        margin-bottom: 12px !important;
+    }
     .latest-items {
         max-width: 33%;
         display: inline-block;
         height: 260px;
         vertical-align: top;
-        
     }
     .latest-body {
         padding: 7px;
@@ -319,21 +329,24 @@ label {
         }
     }
     .container {
-        width: 89%;
-        max-width: 697px;
+        width: 92%;
+        max-width: 786px;
     }
-    .navbar-brand:hover, .thread_title:hover {
-        background: radial-gradient(#9bcdda, #0f92b2);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+    .navbar-brand:hover, .mb-4:hover {
+        background: #f6f8f8;
     }
     div  {
         .card {
             min-height: 154px;
         }
     }    
-    img {
-        width: 125px;
-        height: 115px;
+    .thr_thumbnail {
+        width: 220px;
+        height: 125px;
+        margin: 0.87rem;
+    }
+    .thread_title {
+        font-size: 1.13rem;
+        color: #333333;
     }
 }
