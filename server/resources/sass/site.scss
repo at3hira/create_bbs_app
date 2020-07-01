@@ -32,7 +32,7 @@ $areas: header, main, right, footer;
     max-width: 88%;
 }
 .bg-dark{
-    background-color: #64c1dc !important;
+    background-color: #6dd4ec !important;
     
 }
 
@@ -146,7 +146,7 @@ img {
     position: absolute;
 }
 .thr_show_thumbnail img {
-    width: 100%;
+    width: 92%;
     height: auto;
     margin-top: 1rem;
 }
@@ -184,10 +184,10 @@ nav {
 form {
     background-color: #ffffff;
 }
-button:not(:disabled),
+/*button:not(:disabled),
 [type=submit]:not(:disabled) {
 width: 100%;
-}
+}*/
 
 label {
     font-size: 1.056rem;
@@ -234,6 +234,15 @@ label {
 .footer {
     background-color: #64c1dc;
 }
+.edit-item {
+    border: 1px groove;
+    label {
+        background-color: #a3dff0;
+        width: 100%;
+        font-size: 1rem;
+    }
+}
+
 //幅769px以上に適用されるCSS（タブレット用ブレイクポイント）
 @media screen and (min-width:560px){
     body {
@@ -332,9 +341,6 @@ label {
         width: 92%;
         max-width: 786px;
     }
-    .navbar-brand:hover, .mb-4:hover {
-        background: #f6f8f8;
-    }
     div  {
         .card {
             min-height: 154px;
@@ -342,7 +348,7 @@ label {
     }    
     .thr_thumbnail {
         width: 220px;
-        height: 125px;
+        height: 148px;
         margin: 0.87rem;
     }
     .thread_title {
