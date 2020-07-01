@@ -36,12 +36,12 @@ class UtilityService
         $img_path = storage_path('app/public/thread_img/');
 		$img_file = 'thread_'. $thr_id. '.jpg';
 
-		 // Intervention読込
+        // Intervention読込
 		\Image::make($image)
-			->resize(1024, 576)->save($img_path. $img_file);
+			->resize(1080, 700)->save($img_path. $img_file);
 		
         unset($image);
- 		return str_replace('/var/www/html/storage/app/public/', 'storage/', $img_path. $img_file);
+ 		return str_replace('/var/www/html/storage/app/public/', '', $img_path. $img_file);
 
     }
 }
