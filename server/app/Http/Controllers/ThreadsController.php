@@ -39,7 +39,11 @@ class ThreadsController extends Controller
 		return view('threads.create');
 	}
 
-	// スレッド作成
+	/**
+	 * フォームからPOSTされたデータを基にスレッド新規作成
+	 * 
+	 * 
+	 */
 	public function store(Request $request)
 	{
 		$params = $request->validate([
@@ -56,11 +60,16 @@ class ThreadsController extends Controller
 		if (empty($category_data->id)) {
 			return back()->withInput();
 		}
-		$new_thr_id = Thread::max('id') + 1;		
+		$new_thr_id = Thread::max('id') + 1;
+		//サムネ画像保存
 		$params['img_url'] = \UtilityService::save_thumbnail($new_thr_id, $params['image']);
 		unset($params['image']);
 
-		Thread::create($params);
+		$data = Thread::create($params); //DBにデータ保存
+
+		// タグ登録
+		\UtilityService::add_tags_data($request->tags, $data);
+
 		return redirect()->route('top');
 	}
 

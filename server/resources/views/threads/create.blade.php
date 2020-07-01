@@ -44,7 +44,25 @@
                                 {{ $errors->first('body') }}
                             </div>
 						@endif
-					</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tags">
+                            タグ
+                        </label>
+                        <input 
+                            id="tags"
+                            name="tags"
+                            class="form-control {{ $errors->has('tags') ? 'is-invalid' : '' }}"
+                            value="{{ old('tags') }}"
+                            type="text"
+                        >
+                        @if($errors->has('tags'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('tags') }}
+                            </div>
+                        @endif
+                    </div>
 
 					<div class="form-group">
 						<label for="tweet_tags">ツイート埋め込み</label>

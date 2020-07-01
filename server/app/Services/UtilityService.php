@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use App\Thread;
+use App\Tag;
+
 class UtilityService
 {
     /** 
@@ -28,7 +31,7 @@ class UtilityService
      * image read : public/storage/thread_img
      * 
      * @param int $thr_id
-     * @param Object $image
+     * @param object $image
      * @return string
     **/
     public function save_thumbnail($thr_id, $image)
@@ -43,5 +46,41 @@ class UtilityService
         unset($image);
  		return str_replace('/var/www/html/storage/app/public/', '', $img_path. $img_file);
 
+    }
+
+    /**
+     * タグをtagsテーブルと中間テーブルに挿入
+     * 
+     * 中間テーブル：threadテーブルとtagsテーブルを繋ぐテーブル
+     * 
+     * @param string $request_tags : 登録されるタグ
+     * @param object $data : 新規作成されたスレッドのレコード
+     */
+    public function add_tags_data($request_tags, $data) 
+    {
+
+        // カンマ区切りの単語を取得。$tag_listに配列で代入される
+        $replace_tags = str_replace('、', ',', $request_tags);
+        $tag_list = explode(',', $replace_tags);
+
+		$tags = [];
+		foreach($tag_list as $tag) {
+			$tag = preg_replace( '/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $tag); //マルチバイトでの空白除去
+            /* 
+            *  firstOrCreateメソッド
+            *  DBにデータが存在する場合は取得し、存在しない場合はDBにデータを登録した上でインスタンスを取得する
+            */
+            $record = Tag::firstOrCreate(['name' => $tag]); // tagsテーブルのnameカラムに該当のない$tagは新規登録
+			array_push($tags, $record);
+		}
+
+		$tags_id = [];
+		foreach($tags as $tag) {
+			array_push($tags_id, $tag['id']);  // $tag['id'] : tagsテーブルのid
+		}
+        $thread = Thread::find($data->id); //$data->id : 作成したスレッドのid
+
+        // attachメソッドを使って中間テーブル(thread_tagテーブル)にデータ挿入
+		$thread->tags()->attach($tags_id); 
     }
 }
