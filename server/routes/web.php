@@ -16,17 +16,18 @@
 });*/
 
 Route::get('/', 'ThreadsController@index')->name('top');
-Route::resource('threads', 'ThreadsController', ['only' => ['create', 'store']]);
-Route::resource('threads', 'ThreadsController', ['only' => ['create', 'store', 'show']]);
+//Route::resource('threads', 'ThreadsController', ['only' => ['create', 'store']]);
+//Route::resource('threads', 'ThreadsController', ['only' => ['create', 'store', 'show']]);
 Route::resource('comments', 'CommentsController', ['only' => ['store']]);
 Route::resource('threads', 'ThreadsController', ['only' => ['create', 'store', 'show', 'edit', 'update']]);
 
 Auth::routes();
 
+
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/ope', 'HomeController@index');
 });
 
-Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
-});
+//Route::group(['prefix' => 'admin'], function () {
+//    Voyager::routes();
+//});
