@@ -2,13 +2,21 @@
 
 @section('content')
 <main class="mc-wrapper main">
+	@auth
+	@if(Auth::user()->name == config('const.Users.ADMIN_USER'))
+		<div class="mb-4">
+			<a href="{{ route('threads.create') }}" class="btn btn-primary">
+				スレッドを作成する
+			</a>
+		</div>
+	@endif
+	@endauth
 	{{--@for($i = 0; $i < count($news_list); $i++)
 		<a href="{{ $news_link[$i] }}">
 			<p>{{ $news_list[$i] }}</p>
 		</a>
 	@endfor
 	--}}
-		
 	<article class="container mt-4">
 		@foreach ($threads as $thread)
 {{--			@if($loop->index <= 2 && $device && $threads->currentPage() === 1)

@@ -2,6 +2,16 @@
 
 @section('content')
 	<main class="container mt-4 main">
+		@auth
+		@if(Auth::user()->name == config('const.Users.ADMIN_USER'))
+			<div class="mb-4">
+				<a href="{{ route('threads.edit', ['thread' => $thread]) }}" class="btn btn-primary">
+					スレッドを編集する
+				</a>
+			</div>
+		@endif
+		@endauth
+
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i></a></li>
