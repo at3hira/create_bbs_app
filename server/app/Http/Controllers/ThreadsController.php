@@ -86,8 +86,22 @@ class ThreadsController extends Controller
 	{
 		$thread = Thread::findOrFail($thread_id);
 
+		$tagsData = $thread->tags()->orderby('tag_id')->get();	// スレッドのインスタンスオブジェクトから中間テーブルを通して紐づくタグデータを取得
+		$tagName = [];
+		foreach($tagsData as $tag) {
+			$tagName[] = $tag->name;
+		}
+		$tags = implode(',', $tagName);
+
+		// Eloquentでカテゴリーデータを取得
+		$categorys = Category::where('status', 1)
+							->orderBy('id', 'asc')
+							->get();
+
 		return view('threads.edit', [
 			'thread' => $thread,
+			'tags' => $tags,
+			'categorys' => $categorys,
 		]);
 	}
 

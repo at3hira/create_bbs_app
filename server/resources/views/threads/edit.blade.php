@@ -106,9 +106,11 @@
 						@endif
 						</span>
 						<div>
-							<label><input name="category_id" type="radio" value="1">テスト</label>
-						</div>
-					</div>
+                            @foreach ($categorys as $category)
+    							<label class="category-radio"><input name="category_id" type="radio" value="{{ $category->id }}">{{ $category->category_name }}</label>
+                            @endforeach
+                        </div>
+                    </div>
 
                     <div class="mt-5">
                         <a class="btn btn-secondary" href="{{ route('threads.show', ['thread' => $thread]) }}">
