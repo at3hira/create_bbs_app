@@ -93,7 +93,6 @@ div {
         max-height: 233px;
     }
     .card-meta {
-        color: #7cc8e9;
         width: 100%;
         font-size: 0.85rem;
     }
@@ -137,7 +136,7 @@ div {
 
 img {
     width: 100%;
-    height: 75px;
+    height: 80px;
     vertical-align:-40%;
 }
 .top_image{
@@ -243,7 +242,20 @@ label {
     }
 }
 
-//幅769px以上に適用されるCSS（タブレット用ブレイクポイント）
+.caption {
+    margin: 0.87rem;
+}
+
+.change-file {
+    width: 240px;
+    height: 150px;
+}
+.category-radio {
+    background-color: #efefef !important;
+    font-size: 0.89rem !important;
+}
+
+//幅560px以上に適用されるCSS（タブレット用ブレイクポイント）
 @media screen and (min-width:560px){
     body {
         grid-template: 
@@ -277,8 +289,8 @@ label {
         }
     }
     .thr_thumbnail {
-        width: 180px;
-        height: 105px;
+        width: 160px;
+        height: 120px;
         margin: 0.87rem;
     }
     img {
@@ -294,7 +306,7 @@ label {
     }
 }
 
-//幅1024px以上に適用されるCSS（PC用ブレイクポイント）
+//幅960px以上に適用されるCSS（PC用ブレイクポイント）
 @media screen and (min-width:960px){
     body {
         grid-template: 
