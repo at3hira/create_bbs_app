@@ -12,7 +12,7 @@
                 @method('PUT')
 
                 <fieldset class="mb-4">
-                    <div class="form-group">
+                    <div class="form-group edit-item">
                         <label for="title">
                             タイトル
                         </label>
@@ -30,7 +30,7 @@
                         @endif
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group edit-item">
                         <label for="body">
                             本文
                         </label>
@@ -49,7 +49,33 @@
                             </div>
                         @endif
                     </div>
-					<div class="form-group">
+
+                    <div class="form-group edit-item">
+                        <label for="image">画像</label>
+                        <div class="thr_thumbnail">
+	    					<img src="{{ \Config::get('app.imagePATH') }}/{{ $thread->img_url }}">
+                        </div>
+                        <image-data></image-data>
+                    </div>
+                    <div class="form-group edit-item">
+                        <label for="tags">
+                            タグ
+                        </label>
+                        <input
+                            id="tags"
+                            name="tags"
+                            class="form-control {{ $errors->has('tags') ? 'is-invalid' : '' }}"
+                            value="{{ old('tags') ?: $tags }}"
+                            type="text"
+                        >
+                        @if ($errors->has('tags'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('tags') }}
+                            </div>
+                        @endif
+                    </div>
+
+					<div class="form-group edit-item">
 						<label for="tweet_tags">ツイート埋め込み</label>
                         <p class="mb-5">
                             {!! nl2br($thread->tweet_tags) !!}
@@ -66,7 +92,7 @@
 							</div>
 						@endif
 					</div>
-					<div class="form-group">
+					<div class="form-group edit-item">
 						<label for="category">
 							カテゴリ
 						</label>
