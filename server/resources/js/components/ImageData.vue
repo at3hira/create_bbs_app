@@ -1,6 +1,6 @@
 <template>
     <div class="caption">
-        <input type="file" ref="file" accept="image/*" @change="onFileChange($event)">
+        <input type="file" name="image" ref="file" accept="image/*" @change="onFileChange($event)">
         <p>
             <img class="change-file" :src="imageData" v-if="imageData">
         </p>

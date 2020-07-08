@@ -45,7 +45,6 @@ class UtilityService
 		
         unset($image);
  		return str_replace('/var/www/html/storage/app/public/', '', $img_path. $img_file);
-
     }
 
     /**
@@ -68,7 +67,7 @@ class UtilityService
 			$tag = preg_replace( '/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $tag); //マルチバイトでの空白除去
             /* 
             *  firstOrCreateメソッド
-            *  DBにデータが存在する場合は取得し、存在しない場合はDBにデータを登録した上でインスタンスを取得する
+            *  DBにデータが存在する場合は取得、存在しない場合はDBにデータを登録した上でインスタンスを取得する
             */
             $record = Tag::firstOrCreate(['name' => $tag]); // tagsテーブルのnameカラムに該当のない$tagは新規登録
 			array_push($tags, $record);

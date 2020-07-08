@@ -7,7 +7,7 @@
                 投稿の編集
             </h1>
 
-            <form method="POST" action="{{ route('threads.update', ['thread' => $thread]) }}">
+            <form method="POST" action="{{ route('threads.update', ['thread' => $thread]) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -50,13 +50,14 @@
                         @endif
                     </div>
 
-                    <div class="form-group edit-item">
+                    <div id="app" class="form-group edit-item">
                         <label for="image">画像</label>
                         <div class="thr_thumbnail">
 	    					<img src="{{ \Config::get('app.imagePATH') }}/{{ $thread->img_url }}">
                         </div>
                         <image-data></image-data>
                     </div>
+                    
                     <div class="form-group edit-item">
                         <label for="tags">
                             タグ

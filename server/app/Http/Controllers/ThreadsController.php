@@ -111,7 +111,9 @@ class ThreadsController extends Controller
 		$params = $request->validate([
 			'title' => 'required|max:50',
 			'body' => 'required|max:2000',
-			'category_id' => 'integer',
+			'category_id' => 'required|integer',
+			'image' => 'file|image|mimes:jpeg,png,jpg,gif|max:8192',
+			'tweet_tags' => 'max:6000',
 		]);
 
 		// カテゴリチェック
@@ -120,6 +122,11 @@ class ThreadsController extends Controller
 			return back()->withInput();
 		}
 
+		// サムネイル画像変更
+		if (!empty($params["image"])) {
+			\UtilityService::save_thumbnail($thread_id, $params['image']);
+			unset($params['image']);
+		}
 		$thread = Thread::findOrFail($thread_id);
 		$thread->fill($params)->save();
 
