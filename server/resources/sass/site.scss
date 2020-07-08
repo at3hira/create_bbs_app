@@ -6,6 +6,8 @@ body {
     background-color: hsl(0, 0%, 100%);
     max-width:100%;
     font-weight: 700;
+}
+.main-container{
     display: grid;
     grid-template: 
         "header"
@@ -16,7 +18,7 @@ body {
 $areas: header, main, right, footer;
 @each $area in $areas {
     .#{$area} {
-        grid-area: #{$area}
+        grid-area: #{$area};
     }
 }
 
@@ -32,18 +34,18 @@ $areas: header, main, right, footer;
     max-width: 88%;
 }
 .bg-dark{
-    background-color: #6dd4ec !important;
+    background-color: #ecfaff !important;
     
 }
 
 .navbar-brand {
     font-size: 1.54rem;
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Roboto, "Hiragino Sans", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Arial, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif!important;
-
+    -webkit-text-stroke: 1px #5d5e5e;
+    text-stroke: 1px #FFF;
 }
 
 .container {
-    max-width: 90%;
     padding: 0px;
 }
 
@@ -69,7 +71,9 @@ $areas: header, main, right, footer;
 }
 
 .p-4 {
-    padding: 0rem !important;
+    padding: 0px !important;
+    max-width: 90%;
+    margin-left: 5%;
 }
 
 .mb-4 {
@@ -112,7 +116,6 @@ div {
     border-bottom: 1px solid #ebebeb;
     min-height: 120px;
 }
-
 .mc-wrapper {
     padding-right: 1px;
     padding-left: 1px;
@@ -145,9 +148,10 @@ img {
     position: absolute;
 }
 .thr_show_thumbnail img {
-    width: 92%;
+    width: 100%;
     height: auto;
     margin-top: 1rem;
+    border-radius: 5px;
 }
 p {
     margin-bottom: 0.25rem;
@@ -158,10 +162,10 @@ p.card-text{
     margin-top: 1rem;
 }
 .thread_title {
-    font-size:13px;
+    font-size:13.5px;
     font-size:0.92rem;
     font-weight: 700;
-    color: #00141b;
+    color: #444444;
 }
 
 .time_line {
@@ -169,8 +173,8 @@ p.card-text{
     padding: 20px 20px 0;
     text-align: center;
 }
-nav {
-    margin: 0.5rem auto;
+ .breadcrumb {
+    background-color: #dcdcdc91;
 }
 .twitter-timeline {
     border: 1px solid rgba(0, 0, 0, 0.125) !important;
@@ -210,15 +214,20 @@ label {
     font-family: $font;
     color: #494848;
     text-align: justify;
-    letter-spacing: 0.2rem;
+    letter-spacing: 0.12rem;
+    font-family: inherit;
+    line-height: 1.9;
 }
 
 .subtitle{
-    border-left: 5px solid #5bbee5;
-    padding-left: 10px;
+    border-left: 4px solid #8eceeb;
+    padding: 5px 0px 5px 10px;
     margin-top: 2.23rem;
-    font-size: 1.03rem;
+    font-size: 19.5px;
     color: #4C5252;
+    font-family: inherit;
+    background-color: #f9f9f9;
+    border-radius: 3px;
 }
 
 .twitter-tweet {
@@ -254,10 +263,13 @@ label {
     background-color: #efefef !important;
     font-size: 0.89rem !important;
 }
+.far {
+    color: #7ED1E6;
+}
 
 //幅560px以上に適用されるCSS（タブレット用ブレイクポイント）
 @media screen and (min-width:560px){
-    body {
+    .main-container {
         grid-template: 
             "header"
             "main"
@@ -275,7 +287,7 @@ label {
     }
     .container {
         width: 87%;
-        max-width: 580px;
+        max-width: 750px;
     }
     figure.thr_thumbnail {
         max-width: 235px;
@@ -304,23 +316,21 @@ label {
     .card-body {
         max-width: 55%;
     }
+    .thr_show_thumbnail img {
+        width: 550px;
+    }
 }
 
 //幅960px以上に適用されるCSS（PC用ブレイクポイント）
 @media screen and (min-width:960px){
-    body {
+    .main-container {
         grid-template: 
-            "header header"
-            "main right"
-            "footer footer"
-            / 3fr 1fr;;
+            "header header header"
+            "main right right"
+            "footer footer footer"
+            / 3fr 1fr;
     }
-    $areas: header, main, right, footer;
-    @each $area in $areas {
-        .#{$area} {
-            grid-area: #{$area}
-        }
-    }
+
     .main {
         background-color: #f4f5f6;
     }
@@ -338,7 +348,6 @@ label {
         padding: 7px;
         max-width: 100%;
         line-height:1;
-        vertical-align: top; 
         display: block;
     }
     .latest-thumbnail {
@@ -367,4 +376,8 @@ label {
         font-size: 1.13rem;
         color: #333333;
     }
+    .card-link:hover {
+        background-color: #f0fcff;
+    }
+    
 }

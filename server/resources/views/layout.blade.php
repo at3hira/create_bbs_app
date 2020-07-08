@@ -18,16 +18,16 @@
 
 </head>
 <body>
-    <div id="app">
+    <div class="main-container">
     <header class="navbar navbar-dark bg-dark header">
         <div class="container">
             <a class="navbar-brand" href="{{ url('') }}">
                 BBS PROTO
             </a>
+            @auth
+                {{ Auth::user()->name }}
+            @endauth
         </div>
-        @auth
-            {{ Auth::user()->name }}
-        @endauth
     </header>
 
     @yield('content')

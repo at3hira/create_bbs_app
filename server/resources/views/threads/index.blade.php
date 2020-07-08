@@ -19,7 +19,7 @@
 	--}}
 	<article class="container mt-4">
 		@foreach ($threads as $thread)
-{{--			@if($loop->index <= 2 && $device && $threads->currentPage() === 1)
+			@if($loop->index <= 2 && !$device && $threads->currentPage() === 1)
 			<section class="card mb-4 latest-items">
 					<a class="card-link" href="{{ route('threads.show', ['thread' => $thread]) }}">
 						<div class="latest-thumbnail">
@@ -34,7 +34,7 @@
 					</a>	
 				</section>	
 			@else
---}}
+
 			<section class="card mb-4">
 				<a class="card-link" href="{{ route('threads.show', ['thread' => $thread]) }}">
 					<div class="thr_thumbnail">
@@ -54,15 +54,15 @@
 					</div>
 				</a>	
 			</section>			
-{{--			@endif--}}
+			@endif
 		@endforeach
 		<div class="pagination">
 			{{ $threads->links() }}	
 		</div>
 	</article>
 </main>
-<aside class="right">
+<div class="right">
 	aside
-</aside>
+						</div>
 
 @endsection

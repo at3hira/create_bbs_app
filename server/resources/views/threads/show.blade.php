@@ -2,6 +2,12 @@
 
 @section('content')
 	<main class="container mt-4 main">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i></a></li>
+				<li class="breadcrumb-item active" aria-current="page">{{ $thread->title }}</li>
+			</ol>
+		</nav>
 		@auth
 		@if(Auth::user()->name == config('const.Users.ADMIN_USER'))
 			<div class="mb-4">
@@ -12,12 +18,6 @@
 		@endif
 		@endauth
 
-		<nav aria-label="breadcrumb">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i></a></li>
-				<li class="breadcrumb-item active" aria-current="page">{{ $thread->title }}</li>
-			</ol>
-		</nav>
         <div class="border p-4">
             <h1 class="h5 mb-4 show-title">
                 {{ $thread->title }}
@@ -27,9 +27,9 @@
 					<i class="far fa-comments"></i> {{ $thread->comment->count() }}件
 			</div>
 
-			<figure class="thr_show_thumbnail">
+			<div class="thr_show_thumbnail">
 				<img src="{{ \Config::get('app.imagePATH') }}/{{ $thread->img_url }}">
-			</figure>
+			</div>
 
 			<p class="mb-5 show-body">
                 {!! nl2br($thread->body) !!}

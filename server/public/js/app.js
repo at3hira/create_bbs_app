@@ -37682,7 +37682,7 @@ var render = function() {
   return _c("div", { staticClass: "caption" }, [
     _c("input", {
       ref: "file",
-      attrs: { type: "file", accept: "image/*" },
+      attrs: { type: "file", name: "image", accept: "image/*" },
       on: {
         change: function($event) {
           return _vm.onFileChange($event)
