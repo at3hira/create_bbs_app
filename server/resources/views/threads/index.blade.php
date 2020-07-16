@@ -13,6 +13,23 @@
 	@endauth
 
 	@if(!empty($tag_data))
+		<div class="bread-area">
+			<ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+				<li itemprop="itemListElement" itemscope
+					itemtype="https://schema.org/ListItem">
+					<a itemprop="item" href="/">
+						<span itemprop="name">Top</span>
+					</a>
+					<meta itemprop="position" content="1" />
+				</li>
+
+				<li itemprop="itemListElement" itemscope
+					itemtype="https://schema.org/ListItem">
+					<span itemprop="name">{{ $tag_data->name }}</span>
+					<meta itemprop="position" content="2" />
+				</li>
+			</ol>
+		</div>
 		<section class='tag-name'>
 			<h6># {{ $tag_data->name }}</h6>
 		</section>
