@@ -7,8 +7,30 @@ use App\Tag;
 
 class UtilityService
 {
+    /**
+     * ユーザーのデバイスチェックとスレッドに紐づくタグの取得
+     * param object $threads
+     * param string $user_agent
+     * 
+     * return object $threads
+     * reutrn boolean $device
+     */
+    public function format_thread($threads, $user_agent)
+    {
+		$device = $this->judge_device($user_agent);
+
+		foreach ($threads as $thread) {
+			$body = str_replace(array("\r\n", "\r", "\n"), ' ', $thread->body);
+			$thread->body = strip_tags($body);
+			// スレッドに紐づいているタグを取得
+			$thread->tags = $thread->tags()->orderby('tag_id')->get();
+        }
+        return [$threads, $device];
+        
+
+    }
     /** 
-     * デバイス判定
+     * ユーザーエージェントを使ってPCとその他のデバイス判定
      * @param string $ua ユーザーエージェント
      * @return boolean PC:true iPhone|iPad|Android|iPod:false
      **/

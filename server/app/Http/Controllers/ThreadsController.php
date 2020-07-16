@@ -21,20 +21,15 @@ class ThreadsController extends Controller
 		$threads = Thread::threadList()->paginate(10);
 		// User-Agentを用いてデバイス判定
 		$user_agent = $request->header('User-Agent');
-		$device = \UtilityService::judge_device($user_agent);
-		foreach ($threads as $thread) {
-			$body = str_replace(array("\r\n", "\r", "\n"), ' ', $thread->body);
-			$thread->body = strip_tags($body);
-		}
 
-		$news_list = json_decode(Redis::command('get', ['news_list']));
-		$news_link = json_decode(Redis::command('get', ['news_link']));
+		list($threads, $device) = \UtilityService::format_thread($threads, $user_agent);
+
+		//$news_list = json_decode(Redis::command('get', ['news_list']));
+		//$news_link = json_decode(Redis::command('get', ['news_link']));
 
 		$params = [
 			'threads' => $threads,
 			'device' => $device,
-			'news_link' => $news_link,
-			'news_list' => $news_list,
 		];
 		return view('threads.index', $params);
 	}
