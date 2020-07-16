@@ -15,12 +15,15 @@
     return view('welcome');
 });*/
 
+// スレッド一覧画面
 Route::get('/', 'ThreadsController@index')->name('top');
 //Route::resource('threads', 'ThreadsController', ['only' => ['create', 'store']]);
 //Route::resource('threads', 'ThreadsController', ['only' => ['create', 'store', 'show']]);
 Route::resource('comments', 'CommentsController', ['only' => ['store']]);
 Route::resource('threads', 'ThreadsController', ['only' => ['create', 'store', 'show', 'edit', 'update']]);
 
+// 選択されたタグを含むスレッドを検索
+Route::get('threads/tag_search/{id}', 'ThreadsController@tag_search')->where('product', '[0-9]+');
 Auth::routes();
 
 

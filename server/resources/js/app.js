@@ -6,6 +6,8 @@
 
 require('./bootstrap');
 
+require('./site'); //resourcess/js/site.jsをapp.jsで読み込む
+
 window.Vue = require('vue');
 
 /**

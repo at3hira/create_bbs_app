@@ -5,22 +5,28 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Thread;
 use App\Category;
+use App\Tag;
 use Redis;
 
 class ThreadsController extends Controller
 {
+	/**
+	 * スレッド一覧ページfunction
+	 * @param object $request
+	 * @return array $params スレッドデータ、デバイス判定
+	 */
 	public function index(Request $request)
 	{
+		// スレッドデータ10件取得
 		$threads = Thread::threadList()->paginate(10);
-
 		// User-Agentを用いてデバイス判定
 		$user_agent = $request->header('User-Agent');
 		$device = \UtilityService::judge_device($user_agent);
-
 		foreach ($threads as $thread) {
 			$body = str_replace(array("\r\n", "\r", "\n"), ' ', $thread->body);
 			$thread->body = strip_tags($body);
 		}
+
 		$news_list = json_decode(Redis::command('get', ['news_list']));
 		$news_link = json_decode(Redis::command('get', ['news_link']));
 
@@ -30,7 +36,6 @@ class ThreadsController extends Controller
 			'news_link' => $news_link,
 			'news_list' => $news_list,
 		];
-
 		return view('threads.index', $params);
 	}
 
@@ -131,6 +136,30 @@ class ThreadsController extends Controller
 		$thread->fill($params)->save();
 
 		return redirect()->route('threads.show', ['thread' => $thread]);
+	}
+
+	/**
+	 * 選択されたタグを含んでいるスレッドを返却する
+	 * 
+	 * @param object $request
+	 * @param int $tag_id 選択されたタグid
+	 */
+	public function tag_search(Request $request, int $tag_id) 
+	{
+		// タグidからタグのインスタンス取得
+		$tag_data = Tag::findOrFail($tag_id);
+		// Tagモデルのインスタンスからタグに対応するスレッドを全取得
+		$threads = $tag_data->threads()->orderby('thread_id', 'desc')->paginate(10);
+		$user_agent = $request->header('User-Agent');
+
+		list($threads, $device) = \UtilityService::format_thread($threads, $user_agent);
+
+		$params = [
+			'threads' => $threads,
+			'device' => $device,
+			'tag_data' => $tag_data,
+		];
+		return view('threads.index', $params);
 	}
 
 }
