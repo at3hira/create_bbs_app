@@ -7,28 +7,6 @@ use App\Tag;
 
 class UtilityService
 {
-    /**
-     * ユーザーのデバイスチェックとスレッドに紐づくタグの取得
-     * param object $threads
-     * param string $user_agent
-     * 
-     * return object $threads
-     * reutrn boolean $device
-     */
-    public function format_thread($threads, $user_agent)
-    {
-		$device = $this->judge_device($user_agent);
-
-		foreach ($threads as $thread) {
-			$body = str_replace(array("\r\n", "\r", "\n"), ' ', $thread->body);
-			$thread->body = strip_tags($body);
-			// スレッドに紐づいているタグを取得
-			$thread->tags = $thread->tags()->orderby('tag_id')->get();
-        }
-        return [$threads, $device];
-        
-
-    }
     /** 
      * ユーザーエージェントを使ってPCとその他のデバイス判定
      * @param string $ua ユーザーエージェント
@@ -104,4 +82,17 @@ class UtilityService
         // attachメソッドを使って中間テーブル(thread_tagテーブル)にデータ挿入
 		$thread->tags()->attach($tags_id); 
     }
+
+    /**
+     * スレッドに紐づくタグの取得
+     * @param object $thread
+     * @return object $thread
+     */
+    public function get_tags($thread)
+    {
+        // スレッドに紐づいているタグを取得
+        $thread->tags = $thread->tags()->orderby('tag_id')->get();
+        return $thread;
+    }
+
 }

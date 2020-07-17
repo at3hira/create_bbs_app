@@ -2,12 +2,6 @@
 
 @section('content')
 	<main class="container mt-4 main">
-		<nav aria-label="breadcrumb">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i></a></li>
-				<li class="breadcrumb-item active" aria-current="page">{{ $thread->title }}</li>
-			</ol>
-		</nav>
 		@auth
 		@if(Auth::user()->name == config('const.Users.ADMIN_USER'))
 			<div class="mb-4">
@@ -23,8 +17,8 @@
                 {{ $thread->title }}
 			</h1>
 			<div class="card-meta show-data">
-					<i class="far fa-clock"></i> {{ $thread->created_at->format('Y.m.d') }}
-					<i class="far fa-comments"></i> {{ $thread->comment->count() }}件
+				<i class="far fa-clock"></i> {{ $thread->created_at->format('Y.m.d') }}
+				<i class="far fa-comments"></i> {{ $thread->comment->count() }}件
 			</div>
 
 			<div class="thr_show_thumbnail">
@@ -42,6 +36,11 @@
 			<p class="mb-5 embed-tweet">
 				{!! nl2br($thread->tweet_tags) !!}
 			</p>
+			<div class="tag-list">
+				@foreach ($thread->tags as $tag)
+					<div data-url="/threads/tag_search/{{ $tag->id }}" class="clickTagSearchList tag-keyword">#{{ $tag->name }}</div>
+				@endforeach
+			</div>
 
             <div class="comment">
                 <h2 class="h5 mb-4 comment_section">

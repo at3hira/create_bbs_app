@@ -21,8 +21,13 @@ class ThreadsController extends Controller
 		$threads = Thread::threadList()->paginate(10);
 		// User-Agentを用いてデバイス判定
 		$user_agent = $request->header('User-Agent');
+		$device = \UtilityService::judge_device($user_agent);
 
-		list($threads, $device) = \UtilityService::format_thread($threads, $user_agent);
+		foreach ($threads as $thread) {
+			$body = str_replace(array("\r\n", "\r", "\n"), ' ', $thread->body);
+			$thread->body = strip_tags($body);
+		}
+
 
 		//$news_list = json_decode(Redis::command('get', ['news_list']));
 		//$news_link = json_decode(Redis::command('get', ['news_link']));
@@ -42,7 +47,7 @@ class ThreadsController extends Controller
 	/**
 	 * フォームからPOSTされたデータを基にスレッド新規作成
 	 * 
-	 * 
+	 * @param object: $request
 	 */
 	public function store(Request $request)
 	{
@@ -76,6 +81,8 @@ class ThreadsController extends Controller
 	public function show($thread_id)
 	{
 		$thread = Thread::findOrFail($thread_id);
+		// スレッドに紐づいているタグを取得
+		$threads = \UtilityService::get_tags($thread);
 
 		return view('threads.show', [
 			'thread' => $thread,

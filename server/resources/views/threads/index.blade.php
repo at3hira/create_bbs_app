@@ -51,11 +51,6 @@
 						<div class="card-meta">
 							<i class="far fa-clock"></i> <span class="meta-date">{{ $thread->created_at->format('Y/m/d') }}</span>
 						</div>	
-						<div class="tag-list">
-							@foreach ($thread->tags as $tag)
-								<div data-url="/threads/tag_search/{{ $tag->id }}" class="clickTagSearchList tag-keyword">#{{ $tag->name }}</div>
-							@endforeach
-						</div>
 					</div>
 				</a>	
 			</section>			
