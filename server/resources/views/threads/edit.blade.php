@@ -30,6 +30,14 @@
                         @endif
                     </div>
 
+                    <div id="app" class="form-group edit-item">
+                        <label for="image">画像</label>
+                        <div class="thr_thumbnail">
+	    					<img src="{{ \Config::get('app.imagePATH') }}/{{ $thread->img_url }}">
+                        </div>
+                        <image-data></image-data>
+                    </div>
+
                     <div class="form-group edit-item">
                         <label for="body">
                             本文
@@ -50,28 +58,23 @@
                         @endif
                     </div>
 
-                    <div id="app" class="form-group edit-item">
-                        <label for="image">画像</label>
-                        <div class="thr_thumbnail">
-	    					<img src="{{ \Config::get('app.imagePATH') }}/{{ $thread->img_url }}">
-                        </div>
-                        <image-data></image-data>
-                    </div>
-                    
                     <div class="form-group edit-item">
-                        <label for="tags">
-                            タグ
+                        <label for="sub_title">
+                            見出し
                         </label>
+                        <p class="mb-5">
+                            {!! nl2br($thread->sub_title) !!}
+            			</p>
                         <input
-                            id="tags"
-                            name="tags"
-                            class="form-control {{ $errors->has('tags') ? 'is-invalid' : '' }}"
-                            value="{{ old('tags') ?: $tags }}"
+                            id="sub_title"
+                            name="sub_title"
+                            class="form-control {{ $errors->has('sub_title') ? 'is-invalid' : '' }}"
+                            value="{{ old('sub_title') }}"
                             type="text"
                         >
-                        @if ($errors->has('tags'))
+                        @if ($errors->has('sub_title'))
                             <div class="invalid-feedback">
-                                {{ $errors->first('tags') }}
+                                {{ $errors->first('sub_title') }}
                             </div>
                         @endif
                     </div>
@@ -93,6 +96,26 @@
 							</div>
 						@endif
 					</div>
+
+                    
+                    <div class="form-group edit-item">
+                        <label for="tags">
+                            タグ
+                        </label>
+                        <input
+                            id="tags"
+                            name="tags"
+                            class="form-control {{ $errors->has('tags') ? 'is-invalid' : '' }}"
+                            value="{{ old('tags') ?: $tags }}"
+                            type="text"
+                        >
+                        @if ($errors->has('tags'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('tags') }}
+                            </div>
+                        @endif
+                    </div>
+
 					<div class="form-group edit-item">
 						<label for="category">
 							カテゴリ
