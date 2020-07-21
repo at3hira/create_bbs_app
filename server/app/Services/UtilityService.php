@@ -95,4 +95,14 @@ class UtilityService
         return $thread;
     }
 
+    /**
+     * タグを全件取得し返す(statusカラムが1のデータ)
+     * @return object $tags
+     */
+    public function all_tag_list()
+    {
+        $tags = Tag::where('status', 1)->orderBy('id')->get();
+        return $tags;
+    }
+
 }

@@ -28,13 +28,16 @@ class ThreadsController extends Controller
 			$thread->body = strip_tags($body);
 		}
 
+		// タグを全件取得
+		$tags = \UtilityService::all_tag_list();
 
 		//$news_list = json_decode(Redis::command('get', ['news_list']));
 		//$news_link = json_decode(Redis::command('get', ['news_link']));
 
 		$params = [
 			'threads' => $threads,
-			'device' => $device,
+			'device'  => $device,
+			'tags'    => $tags,
 		];
 		return view('threads.index', $params);
 	}
@@ -52,12 +55,12 @@ class ThreadsController extends Controller
 	public function store(Request $request)
 	{
 		$params = $request->validate([
-			'title' => 'required|max:50',
-			'body' => 'required|max:2000',
+			'title'       => 'required|max:50',
+			'body'        => 'required|max:2000',
 			'category_id' => 'required|integer',
-			'image' => 'required|file|image|mimes:jpeg,png,jpg,gif|max:8192',
-			'tweet_tags' => 'max:6000',
-			'sub_title' => 'required|max:50',
+			'image'       => 'required|file|image|mimes:jpeg,png,jpg,gif|max:8192',
+			'tweet_tags'  => 'max:6000',
+			'sub_title'   => 'required|max:50',
 		]);
 
 		// カテゴリデータチェック
@@ -106,8 +109,8 @@ class ThreadsController extends Controller
 							->get();
 
 		return view('threads.edit', [
-			'thread' => $thread,
-			'tags' => $tags,
+			'thread'    => $thread,
+			'tags'      => $tags,
 			'categorys' => $categorys,
 		]);
 	}
@@ -116,11 +119,11 @@ class ThreadsController extends Controller
 	public function update($thread_id, Request $request)
 	{
 		$params = $request->validate([
-			'title' => 'required|max:50',
-			'body' => 'required|max:2000',
+			'title'       => 'required|max:50',
+			'body'        => 'required|max:2000',
 			'category_id' => 'required|integer',
-			'image' => 'file|image|mimes:jpeg,png,jpg,gif|max:8192',
-			'tweet_tags' => 'max:6000',
+			'image'       => 'file|image|mimes:jpeg,png,jpg,gif|max:8192',
+			'tweet_tags'  => 'max:6000',
 		]);
 
 		// カテゴリチェック
@@ -152,14 +155,23 @@ class ThreadsController extends Controller
 		$tag_data = Tag::findOrFail($tag_id);
 		// Tagモデルのインスタンスからタグに対応するスレッドを全取得
 		$threads = $tag_data->threads()->orderby('thread_id', 'desc')->paginate(10);
+		// ユーザーエージェントでデバイス判定
 		$user_agent = $request->header('User-Agent');
+		$device = \UtilityService::judge_device($user_agent);
 
-		list($threads, $device) = \UtilityService::format_thread($threads, $user_agent);
+		foreach($threads as $thread) {
+			// 各スレッドに関連するタグを取得
+			\UtilityService::get_tags($thread);
+		}
+
+		// タグを全件取得
+		$tags = \UtilityService::all_tag_list();
 
 		$params = [
-			'threads' => $threads,
-			'device' => $device,
+			'threads'  => $threads,
+			'device'   => $device,
 			'tag_data' => $tag_data,
+			'tags'     => $tags,
 		];
 		return view('threads.index', $params);
 	}

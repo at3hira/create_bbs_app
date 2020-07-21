@@ -34,6 +34,7 @@
 			<h6># {{ $tag_data->name }}</h6>
 		</section>
 	@endif
+	
 	<article class="container mt-4">
 		@foreach ($threads as $thread)
 			<section class="card mb-4">
@@ -51,6 +52,11 @@
 						<div class="card-meta">
 							<i class="far fa-clock"></i> <span class="meta-date">{{ $thread->created_at->format('Y/m/d') }}</span>
 						</div>	
+						<div class="tag-list">
+							@foreach ($thread->tags as $tag)
+								<div data-url="/threads/tag_search/{{ $tag->id }}" class="clickTagSearchList tag-keyword">#{{ $tag->name }}</div>
+							@endforeach
+						</div>
 					</div>
 				</a>	
 			</section>			
@@ -61,7 +67,14 @@
 	</article>
 </main>
 <div class="right">
-	aside
-						</div>
+<div class="sidetitle">タグ</div>
+	<div class='sidetop'>
+		@foreach ($tags as $tag)
+			<div class="sidetag">
+				<a href="/threads/tag_search/{{ $tag->id }}">#{{ $tag->name }}</a>
+			</div>
+		@endforeach
+	</div>
+</div>
 
 @endsection
