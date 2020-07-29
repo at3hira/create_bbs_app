@@ -1,13 +1,14 @@
 @charset "utf-8";
 
-$font: 'Lato', 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+$font: '游ゴシック', YuGothic, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
+$site-color: #e0f6fc;
 
 body {
     background-color: hsl(0, 0%, 100%);
-    max-width:100%;
     font-weight: 700;
 }
 .main-container{
+    position:relative;
     display: grid;
     grid-template: 
         "header"
@@ -29,13 +30,8 @@ $areas: header, main, right, footer;
         display: block;
     }
 }
-
-.navbar-dark .navbar-brand {
-    max-width: 88%;
-}
 .bg-dark{
-    background-color: #ecfaff !important;
-    
+    background-color: $site-color !important;
 }
 
 .navbar-brand {
@@ -48,20 +44,45 @@ $areas: header, main, right, footer;
 .container {
     padding: 0px;
 }
-
+.bread-area {
+    width: 100%;
+}
 .breadcrumb {
-    background-color: rgba(0, 0, 0, 0);
     overflow-x: scroll;
-    flex-wrap: nowrap;
+    margin: 0;
+    padding: 0.4em 1em;
+    list-style: none;
+    background: #ffffff;
+    display: block;
     white-space: nowrap;
-    padding: 0.23rem;
-    padding-inline-start: 2px;
-    font-size: 0.71rem;
-}
-
-.breadcrumb-item, .fa-home, .breadcrumb-item::before {
-    color: #999999 !important;
-}
+    font-weight: 100;
+  }
+  
+  .breadcrumb li {
+    display: inline-block;
+    list-style: none;
+  }
+  
+  .breadcrumb li:after {
+    /* >を表示*/
+    font-family: FontAwesome;
+    content: '>';
+    padding: 0 0.2em;
+    color: #8186a0;
+  }
+  
+  .breadcrumb li:last-child:after {
+    content: '';
+  }
+  
+  .breadcrumb li a {
+    text-decoration: none;
+    color: #273376;
+  }
+    
+  .breadcrumb li a:hover {
+    text-decoration: underline;
+  }
 
 .border {
     border: 0 !important;
@@ -106,7 +127,7 @@ div {
     }
 }
 .mt-4 {
-    margin-top: 0px !important;
+    width: 100%;
 }
 
 .card {
@@ -115,19 +136,22 @@ div {
     border: unset;
     border-bottom: 1px solid #ebebeb;
     min-height: 120px;
+    padding-left: 10px;
 }
 .mc-wrapper {
     padding-right: 1px;
     padding-left: 1px;
-    padding-top: 2rem;
-    font-family: '游ゴシック', YuGothic, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;;
+    font-family: $font;
 }
 
-.thr_thumbnail, .latest-thumbnail{
+.thr_thumbnail {
     margin-top: 0.87rem;
     width: 85px;
     height: 85px;
     display: inline-block;
+}
+.thumbnail {
+    border-radius: 5px;
 }
 .card-body, .latest-body {
     max-width: 70%;
@@ -173,9 +197,6 @@ p.card-text{
     padding: 20px 20px 0;
     text-align: center;
 }
- .breadcrumb {
-    background-color: #dcdcdc91;
-}
 .twitter-timeline {
     border: 1px solid rgba(0, 0, 0, 0.125) !important;
 }
@@ -187,10 +208,6 @@ p.card-text{
 form {
     background-color: #ffffff;
 }
-/*button:not(:disabled),
-[type=submit]:not(:disabled) {
-width: 100%;
-}*/
 
 label {
     font-size: 1.056rem;
@@ -234,9 +251,10 @@ label {
     width: 100% !important;
 }
 
-.meta-date {
-    font-size: 0.54rem;
-    color: #bac0c3;
+
+.meta-date, .far {
+    font-size: 0.75rem;
+    color: #9fa1a2;
 }
  
 .footer {
@@ -263,10 +281,82 @@ label {
     background-color: #efefef !important;
     font-size: 0.89rem !important;
 }
-.far {
-    color: #7ED1E6;
+//タグ
+.tag-name {
+    border-radius: 3px;
+    padding: 10px 5px 5px 5px;
+    text-align: center;
+}
+h5 {
+    color: #69c0df;
 }
 
+.clickTagSearchList {
+    display: inline-block;
+}
+.tag-list {
+    list-style: none;
+    margin-bottom: 0;
+    padding-inline-start: 0rem;
+    margin-top: 5px;
+}
+.tag-keyword {
+    border: 1px solid #b1b1b1;
+    border-radius: 3px;
+    padding: 2px 5px;
+    color: #7fc9ef;
+    font-size: 0.8rem;
+    font-weight: normal;
+    border-color: #7fc9ef;
+}
+
+//ページネーション
+div .pagination {
+    justify-content: center;
+    margin-top: 1rem;
+}
+.page-link {
+    border-radius: 0.8rem;
+    margin: 0 0.3rem;
+    border-top-left-radius: 0.8rem !important;
+    border-bottom-left-radius: 0.8rem !important;
+    border-top-right-radius: 0.8rem !important;
+    border-bottom-right-radius: 0.8rem !important;
+    color: #7fc9ef;
+}
+.page-item.active .page-link {
+    color: #9fa1a2;
+    background-color: #ffffff;
+    border-color: #b2b2b2;
+}
+//
+.right {
+    background-color: $site-color;
+}
+.sidetop {
+    margin: 1rem 0.7rem;
+    background-color: rgba(255,255,255,0.85);
+    border-radius: 8px;
+}
+.sidetag {
+    font-size: 1rem;
+    font-family: $font;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid;
+    border-color: #7ecbe8;
+}
+.sidetag a {
+    color: #444444;
+}
+.search-icon {
+    position:absolute; top:0px; right:0px;
+    font-size: 1.2rem;
+    color: #b1d6e2;
+    height: 100%;
+}
+.fa-search {
+    padding: 24px 15px;
+}
 //幅560px以上に適用されるCSS（タブレット用ブレイクポイント）
 @media screen and (min-width:560px){
     .main-container {
@@ -283,22 +373,14 @@ label {
         }
     }
     .main {
-        background-color: #f4f5f6;
+        background-color: #ffffff;
     }
     .container {
         width: 87%;
         max-width: 750px;
     }
-    figure.thr_thumbnail {
-        max-width: 235px;
-    }
-    .latest-thumbnail {
-        width: 200px;
-        height: 115px;
-        img {
-           width: 100%; 
-           height: 100%;
-        }
+    .breadcrumb {
+        max-width: 100%;
     }
     .thr_thumbnail {
         width: 160px;
@@ -331,10 +413,6 @@ label {
             / 3fr 1fr;
     }
 
-    .main {
-        background-color: #f4f5f6;
-    }
-
     .mb-4 {
         margin-bottom: 12px !important;
     }
@@ -349,14 +427,6 @@ label {
         max-width: 100%;
         line-height:1;
         display: block;
-    }
-    .latest-thumbnail {
-        width: 100%;
-        max-width: 100%;
-        img {
-           width: 100%; 
-           height: 150px;;
-        }
     }
     .container {
         width: 92%;
@@ -379,5 +449,7 @@ label {
     .card-link:hover {
         background-color: #f0fcff;
     }
-    
+    .tag-list {
+        margin: 50px 0;
+    }
 }

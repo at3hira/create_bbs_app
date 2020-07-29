@@ -31,7 +31,7 @@
 			</ol>
 		</div>
 		<section class='tag-name'>
-			<h6># {{ $tag_data->name }}</h6>
+			<h5># {{ $tag_data->name }}</h5>
 		</section>
 	@endif
 	
@@ -40,7 +40,7 @@
 			<section class="card mb-4">
 				<a class="card-link" href="{{ route('threads.show', ['thread' => $thread]) }}">
 					<div class="thr_thumbnail">
-						<img src="{{ \Config::get('app.imagePATH') }}/{{ $thread->img_url }}">
+						<img class="thumbnail" src="{{ \Config::get('app.imagePATH') }}/{{ $thread->img_url }}">
 					</div>
 					<div class="card-body">
 						<h2 class="thread_title">{{ $thread->title }}</h2>
@@ -52,11 +52,13 @@
 						<div class="card-meta">
 							<i class="far fa-clock"></i> <span class="meta-date">{{ $thread->created_at->format('Y/m/d') }}</span>
 						</div>	
-						<div class="tag-list">
+						<ul class="tag-list">
 							@foreach ($thread->tags as $tag)
-								<div data-url="/threads/tag_search/{{ $tag->id }}" class="clickTagSearchList tag-keyword">#{{ $tag->name }}</div>
+								<div data-url="/threads/tag_search/{{ $tag->id }}" class="clickTagSearchList">
+									<li class="tag-keyword">#{{ $tag->name }}</li>
+								</div>
 							@endforeach
-						</div>
+						</ul>
 					</div>
 				</a>	
 			</section>			
@@ -67,11 +69,10 @@
 	</article>
 </main>
 <div class="right">
-<div class="sidetitle">タグ</div>
 	<div class='sidetop'>
 		@foreach ($tags as $tag)
 			<div class="sidetag">
-				<a href="/threads/tag_search/{{ $tag->id }}">#{{ $tag->name }}</a>
+				<a href="/threads/tag_search/{{ $tag->id }}">{{ $tag->name }}</a>
 			</div>
 		@endforeach
 	</div>
