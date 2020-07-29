@@ -28,6 +28,12 @@
                 {{ Auth::user()->name }}
             @endauth
         </div>
+        <div id="app" class="search-menu">
+            <div class="search-icon">
+                <i class="fa fa-search"></i>
+            </div>
+            <search-menu></search-menu>
+        </div>
     </header>
 
     @yield('content')

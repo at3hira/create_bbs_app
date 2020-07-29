@@ -7,6 +7,7 @@ use App\Thread;
 use App\Category;
 use App\Tag;
 use Redis;
+use UtilityService;
 
 class ThreadsController extends Controller
 {
@@ -17,11 +18,10 @@ class ThreadsController extends Controller
 	 */
 	public function index(Request $request)
 	{
-		// スレッドデータ10件取得
-		$threads = Thread::threadList()->paginate(10);
+		$threads = Thread::threadList()->paginate(10); // スレッド一覧取得(10件)
 		// User-Agentを用いてデバイス判定
 		$user_agent = $request->header('User-Agent');
-		$device = \UtilityService::judge_device($user_agent);
+		$device = UtilityService::judge_device($user_agent);
 
 		foreach ($threads as $thread) {
 			$body = str_replace(array("\r\n", "\r", "\n"), ' ', $thread->body);
@@ -29,7 +29,7 @@ class ThreadsController extends Controller
 		}
 
 		// タグを全件取得
-		$tags = \UtilityService::all_tag_list();
+		$tags = UtilityService::all_tag_list();
 
 		//$news_list = json_decode(Redis::command('get', ['news_list']));
 		//$news_link = json_decode(Redis::command('get', ['news_link']));
@@ -70,13 +70,13 @@ class ThreadsController extends Controller
 		}
 		$new_thr_id = Thread::max('id') + 1;
 		//サムネ画像保存
-		$params['img_url'] = \UtilityService::save_thumbnail($new_thr_id, $params['image']);
+		$params['img_url'] = UtilityService::save_thumbnail($new_thr_id, $params['image']);
 		unset($params['image']);
 
 		$data = Thread::create($params); //DBにデータ保存
 
 		// タグ登録
-		\UtilityService::add_tags_data($request->tags, $data);
+		UtilityService::add_tags_data($request->tags, $data);
 
 		return redirect()->route('top');
 	}
@@ -85,7 +85,7 @@ class ThreadsController extends Controller
 	{
 		$thread = Thread::findOrFail($thread_id);
 		// スレッドに紐づいているタグを取得
-		$threads = \UtilityService::get_tags($thread);
+		$threads = UtilityService::get_tags($thread);
 
 		return view('threads.show', [
 			'thread' => $thread,
@@ -134,7 +134,7 @@ class ThreadsController extends Controller
 
 		// サムネイル画像変更
 		if (!empty($params["image"])) {
-			\UtilityService::save_thumbnail($thread_id, $params['image']);
+			UtilityService::save_thumbnail($thread_id, $params['image']);
 			unset($params['image']);
 		}
 		$thread = Thread::findOrFail($thread_id);
@@ -144,28 +144,28 @@ class ThreadsController extends Controller
 	}
 
 	/**
-	 * 選択されたタグを含んでいるスレッドを返却する
+	 * 選択されたタグを含んでいるスレッドを返却
 	 * 
 	 * @param object $request
 	 * @param int $tag_id 選択されたタグid
 	 */
 	public function tag_search(Request $request, int $tag_id) 
 	{
-		// タグidからタグのインスタンス取得
+		// タグのインスタンス取得
 		$tag_data = Tag::findOrFail($tag_id);
-		// Tagモデルのインスタンスからタグに対応するスレッドを全取得
+		// タグに対応するスレッドを全取得
 		$threads = $tag_data->threads()->orderby('thread_id', 'desc')->paginate(10);
 		// ユーザーエージェントでデバイス判定
 		$user_agent = $request->header('User-Agent');
-		$device = \UtilityService::judge_device($user_agent);
+		$device = UtilityService::judge_device($user_agent);
 
 		foreach($threads as $thread) {
 			// 各スレッドに関連するタグを取得
-			\UtilityService::get_tags($thread);
+			UtilityService::get_tags($thread);
 		}
 
 		// タグを全件取得
-		$tags = \UtilityService::all_tag_list();
+		$tags = UtilityService::all_tag_list();
 
 		$params = [
 			'threads'  => $threads,
@@ -176,4 +176,34 @@ class ThreadsController extends Controller
 		return view('threads.index', $params);
 	}
 
+	/**
+	 * キーワード検索
+	 * 
+	 * 入力されたキーワードを含むスレッドを抽出
+	 * 対象はtitle, bodyカラム
+	 * 
+	 * @param object $request
+	 */
+	public function keyword_search(Request $request) 
+	{
+		$keyword = $request->input('keyword');
+		$query = Thread::query();
+		// キーワードを含むスレッドを抽出
+		$datas = UtilityService::searchKeyword($query, $keyword);
+		$threads = $datas->orderBy('created_at', 'desc')->paginate(10);
+
+		// ユーザーエージェントでデバイス判定
+		$user_agent = $request->header('User-Agent');
+		$device = UtilityService::judge_device($user_agent);
+		// タグを全件取得
+		$tags = UtilityService::all_tag_list();
+
+		$params = [
+			'threads' => $threads,
+			'device'  => $device,
+			'tags'    => $tags,
+			'keyword' => $keyword,
+		];
+		return view('threads.search_result', $params);
+	}
 }

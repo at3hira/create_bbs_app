@@ -4,15 +4,16 @@ namespace App\Services;
 
 use App\Thread;
 use App\Tag;
+use Illuminate\Support\Facades\Facade;
 
-class UtilityService
+class UtilityService extends Facade
 {
     /** 
      * ユーザーエージェントを使ってPCとその他のデバイス判定
      * @param string $ua ユーザーエージェント
      * @return boolean PC:true iPhone|iPad|Android|iPod:false
      **/
-    public function judge_device($ua)
+    protected function judge_device($ua)
     {
         if ((strpos($ua, 'iPhone') !== false)
             || (strpos($ua, 'iPod') !== false)
@@ -34,7 +35,7 @@ class UtilityService
      * @param object $image
      * @return string
     **/
-    public function save_thumbnail($thr_id, $image)
+    protected function save_thumbnail($thr_id, $image)
     {
         $img_path = storage_path('app/public/thread_img/');
 		$img_file = 'thread_'. $thr_id. '.jpg';
@@ -55,7 +56,7 @@ class UtilityService
      * @param string $request_tags : 登録されるタグ
      * @param object $data : 新規作成されたスレッドのレコード
      */
-    public function add_tags_data($request_tags, $data) 
+    protected function add_tags_data($request_tags, $data) 
     {
 
         // カンマ区切りの単語を取得。$tag_listに配列で代入される
@@ -88,7 +89,7 @@ class UtilityService
      * @param object $thread
      * @return object $thread
      */
-    public function get_tags($thread)
+    protected function get_tags($thread)
     {
         // スレッドに紐づいているタグを取得
         $thread->tags = $thread->tags()->orderby('tag_id')->get();
@@ -99,10 +100,21 @@ class UtilityService
      * タグを全件取得し返す(statusカラムが1のデータ)
      * @return object $tags
      */
-    public function all_tag_list()
+    protected function all_tag_list()
     {
         $tags = Tag::where('status', 1)->orderBy('id')->get();
         return $tags;
     }
 
+    /**
+     * キーワードを基にlike検索(title, bodyカラムを対象)
+     * 
+     * @param object $query
+     * @param string $keyword
+     */
+    protected function searchKeyword($query, $keyword)
+    {
+        return $query->where('title', 'like', '%'. $keyword. '%')
+                ->orWhere('body', 'like', '%'. $keyword. '%');
+    }
 }

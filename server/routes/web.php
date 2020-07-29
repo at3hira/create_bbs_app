@@ -24,6 +24,8 @@ Route::resource('threads', 'ThreadsController', ['only' => ['create', 'store', '
 
 // 選択されたタグを含むスレッドを検索
 Route::get('threads/tag_search/{id}', 'ThreadsController@tag_search')->where('product', '[0-9]+');
+// キーワード検索
+Route::get('/keyword_search', 'ThreadsController@keyword_search');
 Auth::routes();
 
 
