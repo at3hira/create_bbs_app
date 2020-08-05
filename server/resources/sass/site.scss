@@ -1,11 +1,15 @@
 @charset "utf-8";
 
-$font: 'Lato', 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+$font: '游ゴシック', YuGothic, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
+$site-color: #e8faff;
 
 body {
     background-color: hsl(0, 0%, 100%);
-    max-width:100%;
     font-weight: 700;
+    word-break: break-all;
+}
+.main-container{
+    position:relative;
     display: grid;
     grid-template: 
         "header"
@@ -16,7 +20,7 @@ body {
 $areas: header, main, right, footer;
 @each $area in $areas {
     .#{$area} {
-        grid-area: #{$area}
+        grid-area: #{$area};
     }
 }
 
@@ -27,39 +31,66 @@ $areas: header, main, right, footer;
         display: block;
     }
 }
-
-.navbar-dark .navbar-brand {
-    max-width: 88%;
-}
 .bg-dark{
-    background-color: #64c1dc !important;
-    
+    background-color: $site-color !important;
+    width: 100%;
 }
 
 .navbar-brand {
-    font-size: 1.54rem;
+    color: #5bbee5 !important;
+    font-size: 1.74rem;
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Roboto, "Hiragino Sans", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Arial, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif!important;
-
+    font-weight: 200;
 }
 
 .container {
-    max-width: 90%;
     padding: 0px;
 }
-
+.bread-area {
+    width: 100%;
+}
 .breadcrumb {
-    background-color: rgba(0, 0, 0, 0);
-    overflow-x: scroll;
-    flex-wrap: nowrap;
+    width: 100%;
+    padding: 0;
+    list-style: none;
+    background: #ffffff;
+    display: block;
     white-space: nowrap;
-    padding: 0.23rem;
-    padding-inline-start: 2px;
-    font-size: 0.71rem;
-}
-
-.breadcrumb-item, .fa-home, .breadcrumb-item::before {
-    color: #999999 !important;
-}
+    font-weight: 100;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+    overflow: auto;
+    white-space: nowrap;
+    background-color: #ededed;
+  }
+  
+  .breadcrumb li {
+    display: inline-block;
+    list-style: none;
+  }
+  
+  .breadcrumb li:after {
+    /* >を表示*/
+    font-family: FontAwesome;
+    content: '>';
+    padding: 0 0.2em;
+    color: #8186a0;
+  }
+  
+  .breadcrumb li:last-child:after {
+    content: '';
+  }
+  
+  .breadcrumb li a {
+    text-decoration: none;
+    color: #273376;
+  }
+    
+  .breadcrumb li a:hover {
+    text-decoration: underline;
+  }
 
 .border {
     border: 0 !important;
@@ -69,7 +100,9 @@ $areas: header, main, right, footer;
 }
 
 .p-4 {
-    padding: 0rem !important;
+    padding: 0px !important;
+    max-width: 90%;
+    margin-left: 5%;
 }
 
 .mb-4 {
@@ -80,6 +113,7 @@ div {
     .comment {
         background-color: #ffffff;
     }    
+    
     .btn_bar {
         display: flex;
     }
@@ -93,7 +127,6 @@ div {
         max-height: 233px;
     }
     .card-meta {
-        color: #7cc8e9;
         width: 100%;
         font-size: 0.85rem;
     }
@@ -103,7 +136,7 @@ div {
     }
 }
 .mt-4 {
-    margin-top: 0px !important;
+    width: 100%;
 }
 
 .card {
@@ -112,20 +145,22 @@ div {
     border: unset;
     border-bottom: 1px solid #ebebeb;
     min-height: 120px;
+    padding-left: 10px;
 }
-
 .mc-wrapper {
     padding-right: 1px;
     padding-left: 1px;
-    padding-top: 2rem;
-    font-family: '游ゴシック', YuGothic, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;;
+    font-family: $font;
 }
 
-.thr_thumbnail, .latest-thumbnail{
+.thr_thumbnail {
     margin-top: 0.87rem;
     width: 85px;
     height: 85px;
     display: inline-block;
+}
+.thumbnail {
+    border-radius: 5px;
 }
 .card-body, .latest-body {
     max-width: 70%;
@@ -137,7 +172,7 @@ div {
 
 img {
     width: 100%;
-    height: 75px;
+    height: 80px;
     vertical-align:-40%;
 }
 .top_image{
@@ -149,6 +184,7 @@ img {
     width: 100%;
     height: auto;
     margin-top: 1rem;
+    border-radius: 5px;
 }
 p {
     margin-bottom: 0.25rem;
@@ -160,18 +196,15 @@ p.card-text{
 }
 .thread_title {
     font-size:13px;
-    font-size:0.92rem;
+    font-size:0.81rem;
     font-weight: 700;
-    color: #00141b;
+    color: #444444;
 }
 
 .time_line {
     width: 100%;
     padding: 20px 20px 0;
     text-align: center;
-}
-nav {
-    margin: 0.5rem auto;
 }
 .twitter-timeline {
     border: 1px solid rgba(0, 0, 0, 0.125) !important;
@@ -183,10 +216,6 @@ nav {
 
 form {
     background-color: #ffffff;
-}
-button:not(:disabled),
-[type=submit]:not(:disabled) {
-width: 100%;
 }
 
 label {
@@ -211,32 +240,176 @@ label {
     font-family: $font;
     color: #494848;
     text-align: justify;
-    letter-spacing: 0.2rem;
+    letter-spacing: 0.12rem;
+    font-family: inherit;
+    line-height: 1.9;
 }
 
 .subtitle{
-    border-left: 5px solid #5bbee5;
-    padding-left: 10px;
+    border-left: 4px solid #8eceeb;
+    padding: 5px 0px 5px 10px;
     margin-top: 2.23rem;
-    font-size: 1.03rem;
+    font-size: 19.5px;
     color: #4C5252;
+    font-family: inherit;
+    background-color: #f9f9f9;
+    border-radius: 3px;
 }
 
 .twitter-tweet {
     width: 100% !important;
 }
 
-.meta-date {
-    font-size: 0.54rem;
-    color: #bac0c3;
+
+.meta-date, .far {
+    font-size: 0.75rem;
+    color: #9fa1a2;
 }
  
 .footer {
     background-color: #64c1dc;
 }
-//幅769px以上に適用されるCSS（タブレット用ブレイクポイント）
+.edit-item {
+    border: 1px groove;
+    label {
+        background-color: #a3dff0;
+        width: 100%;
+        font-size: 1rem;
+    }
+}
+
+.caption {
+    margin: 0.87rem;
+}
+
+.change-file {
+    width: 240px;
+    height: 150px;
+}
+.category-radio {
+    background-color: #efefef !important;
+    font-size: 0.89rem !important;
+}
+//タグ
+.tag-name {
+    border-radius: 3px;
+    padding: 10px 5px 5px 5px;
+    text-align: center;
+}
+h5 {
+    color: #69c0df;
+}
+
+.clickTagSearchList {
+    display: inline-block;
+}
+.tag-list {
+    list-style: none;
+    margin-bottom: 0;
+    padding-inline-start: 0rem;
+    margin-top: 5px;
+}
+.tag-keyword {
+    border: 1px solid;
+    border-radius: 16px;
+    padding: 3px 9px;
+    background-color: #6cb2eb;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+//ページネーション
+div .pagination {
+    justify-content: center;
+    margin-top: 1rem;
+}
+.page-link {
+    border-radius: 0.8rem;
+    margin: 0 0.3rem;
+    border-top-left-radius: 0.8rem !important;
+    border-bottom-left-radius: 0.8rem !important;
+    border-top-right-radius: 0.8rem !important;
+    border-bottom-right-radius: 0.8rem !important;
+    color: #7fc9ef;
+}
+.page-item.active .page-link {
+    color: #9fa1a2;
+    background-color: #ffffff;
+    border-color: #b2b2b2;
+}
+.page-item {
+    font-size: 1rem;
+}
+// サイドメニュー
+.right {
+    background-color: $site-color;
+}
+.sidetop {
+    margin: 1rem 0.7rem;
+    background-color: rgba(255,255,255,0.85);
+    border-radius: 8px;
+}
+.sidetag {
+    font-size: 1rem;
+    font-family: $font;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid;
+    border-color: #7ecbe8;
+}
+.sidetag a {
+    color: #444444;
+}
+// 検索フォーム
+.search-icon {
+    position:absolute; top:0px; right:0px;
+    font-size: 1.2rem;
+    color: #8babab;
+    height: 100%;
+}
+.fa-search {
+    padding: 24px 15px;
+}
+.search-result {
+    text-align: center;
+}
+.search-result-title {
+    background: -webkit-linear-gradient(0deg, #dcff83, #56c6fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+.search-result-sub-title {
+    color: #acb1b2;
+}
+.search-section {
+    width: 100%;
+    padding: 11px;
+    position: absolute;
+    right: 0px;
+    top: 60px;
+    height: 60px;
+//    background-image: linear-gradient(to bottom right, #eaf4d1, #8ad7fc);
+    border-radius: 16px;
+    background-image: linear-gradient(to bottom right, #a3defa, #ecf8cb);
+    border: solid thin #bfd1d5;
+    z-index: 1;
+}
+.search-form {
+    border-radius: 15px;
+}
+.search-keyword {
+    width: 100%;
+    height: 36px;
+    border-radius: 15px;
+    border: #049cf4;
+}
+input[type=text]:focus {
+    outline: none;
+}
+//幅560px以上に適用されるCSS（タブレット用ブレイクポイント）
 @media screen and (min-width:560px){
-    body {
+    .main-container {
         grid-template: 
             "header"
             "main"
@@ -250,26 +423,18 @@ label {
         }
     }
     .main {
-        background-color: #f4f5f6;
+        background-color: #ffffff;
     }
     .container {
         width: 87%;
-        max-width: 580px;
+        max-width: 750px;
     }
-    figure.thr_thumbnail {
-        max-width: 235px;
-    }
-    .latest-thumbnail {
-        width: 200px;
-        height: 115px;
-        img {
-           width: 100%; 
-           height: 100%;
-        }
+    .breadcrumb {
+        max-width: 100%;
     }
     .thr_thumbnail {
-        width: 180px;
-        height: 105px;
+        width: 160px;
+        height: 120px;
         margin: 0.87rem;
     }
     img {
@@ -283,25 +448,19 @@ label {
     .card-body {
         max-width: 55%;
     }
+    .thr_show_thumbnail img {
+        width: 550px;
+    }
 }
 
-//幅1024px以上に適用されるCSS（PC用ブレイクポイント）
+//幅960px以上に適用されるCSS（PC用ブレイクポイント）
 @media screen and (min-width:960px){
-    body {
+    .main-container {
         grid-template: 
-            "header header"
-            "main right"
-            "footer footer"
-            / 3fr 1fr;;
-    }
-    $areas: header, main, right, footer;
-    @each $area in $areas {
-        .#{$area} {
-            grid-area: #{$area}
-        }
-    }
-    .main {
-        background-color: #f4f5f6;
+            "header header header"
+            "main right right"
+            "footer footer footer"
+            / 3fr 1fr;
     }
 
     .mb-4 {
@@ -317,23 +476,11 @@ label {
         padding: 7px;
         max-width: 100%;
         line-height:1;
-        vertical-align: top; 
         display: block;
-    }
-    .latest-thumbnail {
-        width: 100%;
-        max-width: 100%;
-        img {
-           width: 100%; 
-           height: 150px;;
-        }
     }
     .container {
         width: 92%;
         max-width: 786px;
-    }
-    .navbar-brand:hover, .mb-4:hover {
-        background: #f6f8f8;
     }
     div  {
         .card {
@@ -342,11 +489,21 @@ label {
     }    
     .thr_thumbnail {
         width: 220px;
-        height: 125px;
+        height: 148px;
         margin: 0.87rem;
     }
     .thread_title {
         font-size: 1.13rem;
         color: #333333;
+    }
+    .card-link:hover {
+        background-color: #f0fcff;
+    }
+    .tag-list {
+        margin: 50px 0;
+    }
+    .search-section {
+        width: 374px;
+        right: 5px;
     }
 }

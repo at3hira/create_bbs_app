@@ -6,6 +6,8 @@
 
 require('./bootstrap');
 
+require('./site'); //resourcess/js/site.jsをapp.jsで読み込む
+
 window.Vue = require('vue');
 
 /**
@@ -19,14 +21,21 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+//Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
+// 画像プレビュー機能
+Vue.component('image-data', require('./components/ImageData.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+const imageapp = new Vue({
+    el: '#image-app',
+});
 
-const app = new Vue({
-    el: '#app',
+// 検索フォーム表示非表示
+Vue.component('search-menu', require('./components/SearchMenu.vue').default);
+const searchapp = new Vue({
+    el: '#search-app',
 });

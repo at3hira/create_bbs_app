@@ -2,43 +2,32 @@
 
 @section('content')
 <main class="mc-wrapper main">
-	@auth
-	@if(Auth::user()->name == config('const.Users.ADMIN_USER'))
-		<div class="mb-4">
-			<a href="{{ action('ThreadsController@create') }}" class="btn btn-primary">
-				スレッドを作成する
-			</a>
-		</div>
-	@endif
-	@endauth
+	<div class="bread-area">
+		<ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+			<li itemprop="itemListElement" itemscope
+				itemtype="https://schema.org/ListItem">
+				<a itemprop="item" href="/">
+					<span itemprop="name">Top</span>
+				</a>
+				<meta itemprop="position" content="1" />
+			</li>
 
-	@if(!empty($tag_data))
-		<div class="bread-area">
-			<ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-				<li itemprop="itemListElement" itemscope
-					itemtype="https://schema.org/ListItem">
-					<a itemprop="item" href="/">
-						<span itemprop="name">Top</span>
-					</a>
-					<meta itemprop="position" content="1" />
-				</li>
-
-				<li itemprop="itemListElement" itemscope
-					itemtype="https://schema.org/ListItem">
-					<span itemprop="name">{{ $tag_data->name }}</span>
-					<meta itemprop="position" content="2" />
-				</li>
-			</ol>
-		</div>
-		<section class='tag-name'>
-			<h5># {{ $tag_data->name }}</h5>
-		</section>
-	@endif
+			<li itemprop="itemListElement" itemscope
+				itemtype="https://schema.org/ListItem">
+				<span itemprop="name">{{ $keyword }}</span>
+				<meta itemprop="position" content="2" />
+			</li>
+		</ol>
+	</div>
+	<section class='search-result'>
+		<h3 class="search-result-title">Search Result</h3>
+		<p class="search-result-sub-title">"{{ $keyword }}"の検索結果</p>
+	</section>
 	
 	<article class="container mt-4">
 		@foreach ($threads as $thread)
 			<section class="card mb-4">
-				<a class="card-link" href="{{ action('ThreadsController@show', $thread->id) }}">
+				<a class="card-link" href="{{ route('threads.show', ['thread' => $thread]) }}">
 					<div class="thr_thumbnail">
 						<img class="thumbnail" src="{{ \Config::get('app.imagePATH') }}/{{ $thread->img_url }}">
 					</div>
@@ -64,7 +53,7 @@
 			</section>			
 		@endforeach
 		<div class="pagination">
-			{{ $threads->links() }}	
+			{{ $threads->appends(request()->input())->links() }}	
 		</div>
 	</article>
 </main>
