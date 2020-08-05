@@ -2,24 +2,29 @@
 
 @section('content')
 	<main class="container mt-4 main">
-		<nav aria-label="breadcrumb">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i></a></li>
-				<li class="breadcrumb-item active" aria-current="page">{{ $thread->title }}</li>
-			</ol>
-		</nav>
+		@auth
+		@if(Auth::user()->name == config('const.Users.ADMIN_USER'))
+			<div class="mb-4">
+				<a href="{{ action('ThreadsController@edit', $thread) }}" class="btn btn-primary">
+					スレッドを編集する
+				</a>
+			</div>
+		@endif
+		@endauth
+
+		
         <div class="border p-4">
             <h1 class="h5 mb-4 show-title">
                 {{ $thread->title }}
 			</h1>
 			<div class="card-meta show-data">
-					<i class="far fa-clock"></i> {{ $thread->created_at->format('Y.m.d') }}
-					<i class="far fa-comments"></i> {{ $thread->comment->count() }}件
+				<i class="far fa-clock"></i> {{ $thread->created_at->format('Y.m.d') }}
+				<i class="far fa-comments"></i> {{ $thread->comment->count() }}件
 			</div>
 
-			<figure class="thr_show_thumbnail">
+			<div class="thr_show_thumbnail">
 				<img src="{{ \Config::get('app.imagePATH') }}/{{ $thread->img_url }}">
-			</figure>
+			</div>
 
 			<p class="mb-5 show-body">
                 {!! nl2br($thread->body) !!}
@@ -32,6 +37,11 @@
 			<p class="mb-5 embed-tweet">
 				{!! nl2br($thread->tweet_tags) !!}
 			</p>
+			<div class="tag-list">
+				@foreach ($thread->tags as $tag)
+					<div data-url="/threads/tag_search/{{ $tag->id }}" class="clickTagSearchList tag-keyword">#{{ $tag->name }}</div>
+				@endforeach
+			</div>
 
             <div class="comment">
                 <h2 class="h5 mb-4 comment_section">

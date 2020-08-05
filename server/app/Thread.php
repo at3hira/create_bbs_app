@@ -16,20 +16,23 @@ class Thread extends Model
 	];
 
 	/*
-	 * スレッドに該当するカテゴリID取得
+	 * 各テーブルのリレーション設定
 	 */
 	public function category ()
 	{
 		return $this->belongsTo('App\Category', 'category_id');
 	}
 
-	/**
-	 * スレッドのコメントを取得
-	 */
 	public function comment()
 	{
 		return $this->hasMany('App\Comment');
 	}
+
+	public function tags()
+	{
+		return $this->belongsToMany('App\Tag', 'thread_tag_table');
+	}
+
 
 	/**
 	 * スレッドの一覧を降順で取得
