@@ -7,7 +7,7 @@
                 投稿の編集
             </h1>
 
-            <form method="POST" action="{{ route('threads.update', ['thread' => $thread]) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ action('ThreadsController@update', $thread) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -137,7 +137,7 @@
                     </div>
 
                     <div class="mt-5">
-                        <a class="btn btn-secondary" href="{{ route('threads.show', ['thread' => $thread]) }}">
+                        <a class="btn btn-secondary" href="{{ action('ThreadsController@show', $thread->id) }}">
                             キャンセル
                         </a>
 

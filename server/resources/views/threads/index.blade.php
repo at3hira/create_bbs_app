@@ -5,7 +5,7 @@
 	@auth
 	@if(Auth::user()->name == config('const.Users.ADMIN_USER'))
 		<div class="mb-4">
-			<a href="{{ route('threads.create') }}" class="btn btn-primary">
+			<a href="{{ action('ThreadsController@create') }}" class="btn btn-primary">
 				スレッドを作成する
 			</a>
 		</div>
@@ -38,7 +38,7 @@
 	<article class="container mt-4">
 		@foreach ($threads as $thread)
 			<section class="card mb-4">
-				<a class="card-link" href="{{ route('threads.show', ['thread' => $thread]) }}">
+				<a class="card-link" href="{{ action('ThreadsController@show', $thread->id) }}">
 					<div class="thr_thumbnail">
 						<img class="thumbnail" src="{{ \Config::get('app.imagePATH') }}/{{ $thread->img_url }}">
 					</div>

@@ -5,13 +5,14 @@
 		@auth
 		@if(Auth::user()->name == config('const.Users.ADMIN_USER'))
 			<div class="mb-4">
-				<a href="{{ route('threads.edit', ['thread' => $thread]) }}" class="btn btn-primary">
+				<a href="{{ action('ThreadsController@edit', $thread) }}" class="btn btn-primary">
 					スレッドを編集する
 				</a>
 			</div>
 		@endif
 		@endauth
 
+		
         <div class="border p-4">
             <h1 class="h5 mb-4 show-title">
                 {{ $thread->title }}

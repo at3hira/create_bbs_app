@@ -78,7 +78,7 @@ class ThreadsController extends Controller
 		// タグ登録
 		UtilityService::add_tags_data($request->tags, $data);
 
-		return redirect()->route('top');
+		return redirect()->route('threads.index');
 	}
 
 	public function show($thread_id)
@@ -140,7 +140,7 @@ class ThreadsController extends Controller
 		$thread = Thread::findOrFail($thread_id);
 		$thread->fill($params)->save();
 
-		return redirect()->route('threads.show', ['thread' => $thread]);
+		return redirect()->route('threads.show', ['id' => $thread]);
 	}
 
 	/**
