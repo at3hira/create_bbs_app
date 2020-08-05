@@ -42,7 +42,9 @@ class UtilityService extends Facade
 
         // Intervention読込
 		\Image::make($image)
-			->resize(1080, 700)->save($img_path. $img_file);
+			->resize(550, null, function($constraint){
+                $constraint->aspectRatio();
+            })->save($img_path. $img_file);
 		
         unset($image);
  		return str_replace('/var/www/html/storage/app/public/', '', $img_path. $img_file);
