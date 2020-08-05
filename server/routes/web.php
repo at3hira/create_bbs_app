@@ -20,12 +20,25 @@ Route::get('threads/tag_search/{id}', 'ThreadsController@tag_search')->where('pr
 Route::get('/keyword_search', 'ThreadsController@keyword_search');
 // コメント作成
 Route::resource('comments', 'CommentsController', ['only' => ['store']]);
+// 認証ログイン
+Route::get('ope', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('ope', 'Auth\LoginController@login');
 
 
-Auth::routes();
+//Auth::routes();
 Route::group(['middleware' => 'auth'], function() {
-    // 認証ログイン
-    Route::get('/ope', 'HomeController@index');
+    // ログインダッシュボード
+    Route::get('/ope/home', 'HomeController@index')->name('home');
+    // ログアウト
+    Route::post('ope/logout', 'Auth\LoginController@logout')->name('logout');
+    // ユーザー登録
+    Route::get('ope/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+    Route::post('ope/register', 'Auth\RegisterController@register');
+    // パスワード
+    Route::get('ope/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    Route::post('ope/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    Route::get('ope/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('ope/password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
     // スレッド作成
     Route::get('/create', 'ThreadsController@create');
     Route::post('/', 'ThreadsController@store')->name('threads.store'); 
