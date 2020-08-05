@@ -30,7 +30,7 @@
                         @endif
                     </div>
 
-                    <div id="app" class="form-group edit-item">
+                    <div id="image-app" class="form-group edit-item">
                         <label for="image">画像</label>
                         <div class="thr_thumbnail">
 	    					<img src="{{ \Config::get('app.imagePATH') }}/{{ $thread->img_url }}">

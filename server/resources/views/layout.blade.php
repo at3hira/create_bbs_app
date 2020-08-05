@@ -28,10 +28,7 @@
                 {{ Auth::user()->name }}
             @endauth
         </div>
-        <div id="app" class="search-menu">
-            <div class="search-icon">
-                <i class="fa fa-search"></i>
-            </div>
+        <div id="search-app" class="search-menu">
             <search-menu></search-menu>
         </div>
     </header>

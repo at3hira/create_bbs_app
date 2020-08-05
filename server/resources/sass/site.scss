@@ -1,11 +1,12 @@
 @charset "utf-8";
 
 $font: '游ゴシック', YuGothic, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
-$site-color: #e0f6fc;
+$site-color: #e8faff;
 
 body {
     background-color: hsl(0, 0%, 100%);
     font-weight: 700;
+    word-break: break-all;
 }
 .main-container{
     position:relative;
@@ -32,13 +33,14 @@ $areas: header, main, right, footer;
 }
 .bg-dark{
     background-color: $site-color !important;
+    width: 100%;
 }
 
 .navbar-brand {
-    font-size: 1.54rem;
+    color: #5bbee5 !important;
+    font-size: 1.74rem;
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Roboto, "Hiragino Sans", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Arial, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif!important;
-    -webkit-text-stroke: 1px #5d5e5e;
-    text-stroke: 1px #FFF;
+    font-weight: 200;
 }
 
 .container {
@@ -48,14 +50,20 @@ $areas: header, main, right, footer;
     width: 100%;
 }
 .breadcrumb {
-    overflow-x: scroll;
-    margin: 0;
-    padding: 0.4em 1em;
+    width: 100%;
+    padding: 0;
     list-style: none;
     background: #ffffff;
     display: block;
     white-space: nowrap;
     font-weight: 100;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+    overflow: auto;
+    white-space: nowrap;
+    background-color: #ededed;
   }
   
   .breadcrumb li {
@@ -105,6 +113,7 @@ div {
     .comment {
         background-color: #ffffff;
     }    
+    
     .btn_bar {
         display: flex;
     }
@@ -301,13 +310,13 @@ h5 {
     margin-top: 5px;
 }
 .tag-keyword {
-    border: 1px solid #b1b1b1;
-    border-radius: 3px;
-    padding: 2px 5px;
-    color: #7fc9ef;
-    font-size: 0.8rem;
+    border: 1px solid;
+    border-radius: 16px;
+    padding: 3px 9px;
+    background-color: #6cb2eb;
+    color: #ffffff;
+    font-size: 1rem;
     font-weight: normal;
-    border-color: #7fc9ef;
 }
 
 //ページネーション
@@ -329,7 +338,10 @@ div .pagination {
     background-color: #ffffff;
     border-color: #b2b2b2;
 }
-//
+.page-item {
+    font-size: 1rem;
+}
+// サイドメニュー
 .right {
     background-color: $site-color;
 }
@@ -348,14 +360,52 @@ div .pagination {
 .sidetag a {
     color: #444444;
 }
+// 検索フォーム
 .search-icon {
     position:absolute; top:0px; right:0px;
     font-size: 1.2rem;
-    color: #b1d6e2;
+    color: #8babab;
     height: 100%;
 }
 .fa-search {
     padding: 24px 15px;
+}
+.search-result {
+    text-align: center;
+}
+.search-result-title {
+    background: -webkit-linear-gradient(0deg, #dcff83, #56c6fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+.search-result-sub-title {
+    color: #acb1b2;
+}
+.search-section {
+    width: 100%;
+    padding: 11px;
+    position: absolute;
+    right: 0px;
+    top: 60px;
+    height: 60px;
+//    background-image: linear-gradient(to bottom right, #eaf4d1, #8ad7fc);
+    border-radius: 16px;
+    background-image: linear-gradient(to bottom right, #a3defa, #ecf8cb);
+    border: solid thin #bfd1d5;
+    z-index: 1;
+}
+.search-form {
+    border-radius: 15px;
+}
+.search-keyword {
+    width: 100%;
+    height: 36px;
+    border-radius: 15px;
+    border: #049cf4;
+}
+input[type=text]:focus {
+    outline: none;
 }
 //幅560px以上に適用されるCSS（タブレット用ブレイクポイント）
 @media screen and (min-width:560px){
@@ -451,5 +501,9 @@ div .pagination {
     }
     .tag-list {
         margin: 50px 0;
+    }
+    .search-section {
+        width: 374px;
+        right: 5px;
     }
 }

@@ -1972,9 +1972,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      search: false,
+      keyword: ''
+    };
+  },
+  methods: {
+    searchForm: function searchForm() {
+      this.search = !this.search;
+    }
   }
 });
 
@@ -37683,15 +37695,45 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "search-form" }, [
-    _c("form", { attrs: { action: "/keyword_search", method: "get" } }, [
-      _c("input", {
-        attrs: { type: "text", name: "keyword", placeholder: "検索キーワード" },
-        domProps: { value: _vm.$keyword }
-      }),
-      _vm._v(" "),
-      _c("input", { attrs: { type: "submit", value: "検索" } })
-    ])
+  return _c("div", [
+    _c("div", { staticClass: "search-icon", on: { click: _vm.searchForm } }, [
+      _c("i", { staticClass: "fa fa-search" })
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.search,
+            expression: "search"
+          }
+        ],
+        staticClass: "search-section"
+      },
+      [
+        _c(
+          "form",
+          {
+            staticClass: "search-form",
+            attrs: { action: "/keyword_search", method: "get" }
+          },
+          [
+            _c("input", {
+              staticClass: "search-keyword",
+              attrs: {
+                type: "text",
+                name: "keyword",
+                placeholder: "検索キーワード"
+              },
+              domProps: { value: _vm.keyword }
+            })
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = []
@@ -49889,15 +49931,19 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // 画像プレビュー機能
 
 Vue.component('image-data', __webpack_require__(/*! ./components/ImageData.vue */ "./resources/js/components/ImageData.vue")["default"]);
-Vue.component('search-menu', __webpack_require__(/*! ./components/SearchMenu.vue */ "./resources/js/components/SearchMenu.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-var app = new Vue({
-  el: '#app'
+var imageapp = new Vue({
+  el: '#image-app'
+}); // 検索フォーム表示非表示
+
+Vue.component('search-menu', __webpack_require__(/*! ./components/SearchMenu.vue */ "./resources/js/components/SearchMenu.vue")["default"]);
+var searchapp = new Vue({
+  el: '#search-app'
 });
 
 /***/ }),
@@ -49951,14 +49997,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*!***********************************************!*\
   !*** ./resources/js/components/ImageData.vue ***!
   \***********************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ImageData_vue_vue_type_template_id_2c65916c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ImageData.vue?vue&type=template&id=2c65916c& */ "./resources/js/components/ImageData.vue?vue&type=template&id=2c65916c&");
 /* harmony import */ var _ImageData_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ImageData.vue?vue&type=script&lang=js& */ "./resources/js/components/ImageData.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ImageData_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ImageData_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -49988,7 +50035,7 @@ component.options.__file = "resources/js/components/ImageData.vue"
 /*!************************************************************************!*\
   !*** ./resources/js/components/ImageData.vue?vue&type=script&lang=js& ***!
   \************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

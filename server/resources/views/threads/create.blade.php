@@ -28,7 +28,7 @@
                         @endif
                     </div>
 
-                    <div id="app" class="form-group">
+                    <div id="image-app" class="form-group">
 						<label for="image">画像</label>
                         <image-data></image-data>
 					</div>
