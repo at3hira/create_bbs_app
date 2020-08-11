@@ -21,11 +21,11 @@
     <div class="main-container">
     <header class="navbar navbar-dark bg-dark header">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('') }}">
+            <a class="navbar-brand" href="{{ url('/') }}">
                 BBS PROTO
             </a>
             @auth
-                {{ Auth::user()->name }}
+                <a href="{{ route('home') }}">{{ Auth::user()->name }}</a>
             @endauth
         </div>
         <div id="search-app" class="search-menu">
@@ -34,7 +34,7 @@
     </header>
 
     @yield('content')
-    
+
     <footer class="footer">
         <div class="time_line">
             {{--<a class="twitter-timeline" data-width="500" data-height="500" href="https://twitter.com/bakittonews?ref_src=twsrc%5Etfw">Tweets by bakittonews</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>--}}
