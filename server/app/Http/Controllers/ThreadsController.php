@@ -47,7 +47,11 @@ class ThreadsController extends Controller
 	 */
 	public function create()
 	{
-		return view('threads.create');
+		$categorys = Category::where('status', 1)
+		->orderBy('id', 'asc')
+		->get();
+
+		return view('threads.create', ['categorys' => $categorys]);
 	}
 
 	/**
@@ -93,9 +97,12 @@ class ThreadsController extends Controller
 	public function show($thread_id)
 	{
 		$thread = Thread::findOrFail($thread_id);
+		// タグを全件取得
+		$tags = UtilityService::all_tag_list();
 
 		return view('threads.show', [
 			'thread' => $thread,
+			'tags' => $tags,
 		]);
 	}
 
@@ -141,7 +148,7 @@ class ThreadsController extends Controller
 			return redirect('/');
 		}
 	}
-	
+
 	// スレッド更新処理
 	public function update($thread_id, $request)
 	{
@@ -166,7 +173,6 @@ class ThreadsController extends Controller
 		}
 		$thread = Thread::findOrFail($thread_id);
 		$thread->fill($params)->save();
-
 	}
 
 	/**
