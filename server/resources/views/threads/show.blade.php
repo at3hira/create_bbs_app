@@ -97,8 +97,16 @@
 			</form>
         </div>
 	</main>
-	<aside class="right">
-		aside
-	</aside>
+
+	{{-- サイドバー --}}
+	<div class="right">
+		<div class='sidetop'>
+			@foreach ($tags as $tag)
+				<div class="sidetag">
+					<a href="/threads/tag_search/{{ $tag->id }}">{{ $tag->name }}</a>
+				</div>
+			@endforeach
+		</div>
+	</div>
 
 @endsection
