@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Thread extends Model
 {
+	use SoftDeletes; // 論理削除の利用を宣言
+	protected $dates = ['deleted_at']; // 削除日時を入れるカラム
+
 	/*
 	 * 下記カラムはユーザーからの入力値を反映させない
 	 */

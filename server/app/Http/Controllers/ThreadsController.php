@@ -42,6 +42,9 @@ class ThreadsController extends Controller
 		return view('threads.index', $params);
 	}
 
+	/**
+	 * スレッド作成画面
+	 */
 	public function create()
 	{
 		return view('threads.create');
@@ -81,11 +84,15 @@ class ThreadsController extends Controller
 		return redirect()->route('threads.index');
 	}
 
+	/**
+	 * スレッド詳細ページ
+	 * 
+	 * @param string $thread_id
+	 * @return object $thread
+	 */
 	public function show($thread_id)
 	{
 		$thread = Thread::findOrFail($thread_id);
-		// スレッドに紐づいているタグを取得
-		$threads = UtilityService::get_tags($thread);
 
 		return view('threads.show', [
 			'thread' => $thread,
@@ -115,8 +122,28 @@ class ThreadsController extends Controller
 		]);
 	}
 
+	/**
+	 * 更新、削除のハンドリング
+	 * edit.bladeテンプレートでSubmitボタンを複数置いた時のハンドリング
+	 * 
+	 * @param string $thread_id
+	 * @param object $request
+	 */
+	public function post_process($thread_id, Request $request)
+	{
+		if ($request->input('update')) {
+			// 更新処理
+			$this->update($thread_id, $request);
+			return redirect()->route('threads.show', ['id' => $thread_id]);
+		} elseif($request->input('delete')) {
+			// 論理削除
+			$this->softDelete($thread_id);
+			return redirect('/');
+		}
+	}
+	
 	// スレッド更新処理
-	public function update($thread_id, Request $request)
+	public function update($thread_id, $request)
 	{
 		$params = $request->validate([
 			'title'       => 'required|max:50',
@@ -140,9 +167,19 @@ class ThreadsController extends Controller
 		$thread = Thread::findOrFail($thread_id);
 		$thread->fill($params)->save();
 
-		return redirect()->route('threads.show', ['id' => $thread]);
 	}
 
+	/**
+	 * スレッド論理削除
+	 * 
+	 * @param string $thread_id
+	 */
+	public function softDelete($thread_id) 
+	{
+		dd(gettype($thread_id));
+		$thread = Thread::find($thread_id);
+		$thread->delete();
+	}
 	/**
 	 * 選択されたタグを含んでいるスレッドを返却
 	 * 
