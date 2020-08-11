@@ -68,6 +68,8 @@
 		</div>
 	</article>
 </main>
+
+{{-- サイドバー --}}
 <div class="right">
 	<div class='sidetop'>
 		@foreach ($tags as $tag)

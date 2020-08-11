@@ -374,7 +374,7 @@ div .pagination {
     text-align: center;
 }
 .search-result-title {
-    background: -webkit-linear-gradient(0deg, #dcff83, #56c6fc);
+    background: -webkit-linear-gradient(0deg, #cff8ff, #58bdee);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 700;
@@ -389,7 +389,6 @@ div .pagination {
     right: 0px;
     top: 60px;
     height: 60px;
-//    background-image: linear-gradient(to bottom right, #eaf4d1, #8ad7fc);
     border-radius: 16px;
     background-image: linear-gradient(to bottom right, #a3defa, #ecf8cb);
     border: solid thin #bfd1d5;
@@ -406,6 +405,11 @@ div .pagination {
 }
 input[type=text]:focus {
     outline: none;
+}
+
+// btn
+.btn {
+    margin: 0 10px;
 }
 //幅560px以上に適用されるCSS（タブレット用ブレイクポイント）
 @media screen and (min-width:560px){
