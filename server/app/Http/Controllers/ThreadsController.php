@@ -12,9 +12,11 @@ use UtilityService;
 class ThreadsController extends Controller
 {
 	/**
-	 * スレッド一覧ページfunction
+	 * スレッド一覧ページ
 	 * @param object $request
-	 * @return array $params スレッドデータ、デバイス判定
+	 * @return object $thread
+	 * @return boolean $device
+	 * @return object $tags
 	 */
 	public function index(Request $request)
 	{
@@ -28,7 +30,7 @@ class ThreadsController extends Controller
 			$thread->body = strip_tags($body);
 		}
 
-		// タグを全件取得
+		// サイドメニューに表示するタグを全件取得
 		$tags = UtilityService::all_tag_list();
 
 		//$news_list = json_decode(Redis::command('get', ['news_list']));
@@ -55,7 +57,7 @@ class ThreadsController extends Controller
 	}
 
 	/**
-	 * フォームからPOSTされたデータを基にスレッド新規作成
+	 * スレッド作成
 	 * 
 	 * @param object: $request
 	 */
@@ -80,10 +82,15 @@ class ThreadsController extends Controller
 		$params['img_url'] = UtilityService::save_thumbnail($new_thr_id, $params['image']);
 		unset($params['image']);
 
-		$data = Thread::create($params); //DBにデータ保存
+		$data = Thread::create($params); //threadsテーブルにデータ登録
 
 		// タグ登録
-		UtilityService::add_tags_data($request->tags, $data);
+		$tags_id = UtilityService::add_tags_data($request->tags, $data);
+
+		$thread = Thread::find($data->id); //$data->id : 作成したスレッドのid
+
+		// attachメソッドで中間テーブルにデータ登録
+		$thread->tags()->attach($tags_id);
 
 		return redirect()->route('threads.index');
 	}
@@ -93,12 +100,12 @@ class ThreadsController extends Controller
 	 * 
 	 * @param string $thread_id
 	 * @return object $thread
+	 * @return object $tags
 	 */
 	public function show($thread_id)
 	{
 		$thread = Thread::findOrFail($thread_id);
-		// タグを全件取得
-		$tags = UtilityService::all_tag_list();
+		$tags = UtilityService::all_tag_list();	// サイドメニューに表示するタグを全件取得
 
 		return view('threads.show', [
 			'thread' => $thread,
@@ -106,11 +113,20 @@ class ThreadsController extends Controller
 		]);
 	}
 
+	/**
+	 * スレッド編集ページ
+	 * 
+	 * @param string $thread_id
+	 * @return object $thread 
+	 * @return string $tags スレッドに紐づいてるタグ
+	 * @return object $categorys
+	 */
 	public function edit($thread_id) 
 	{
 		$thread = Thread::findOrFail($thread_id);
 
-		$tagsData = $thread->tags()->orderby('tag_id')->get();	// スレッドのインスタンスオブジェクトから中間テーブルを通して紐づくタグデータを取得
+		// スレッドのインスタンスオブジェクトから中間テーブルを通して紐づくタグデータを取得
+		$tagsData = $thread->tags()->orderby('tag_id')->get();
 		$tagName = [];
 		foreach($tagsData as $tag) {
 			$tagName[] = $tag->name;
@@ -149,7 +165,13 @@ class ThreadsController extends Controller
 		}
 	}
 
-	// スレッド更新処理
+	/** 
+	 * スレッド更新
+	 * 
+	 * @param string $thread_id 
+	 * @param object $request
+	 * 
+	 * */
 	public function update($thread_id, $request)
 	{
 		$params = $request->validate([
@@ -172,6 +194,12 @@ class ThreadsController extends Controller
 			unset($params['image']);
 		}
 		$thread = Thread::findOrFail($thread_id);
+
+		// タグ登録
+		$tags_id = UtilityService::add_tags_data($request->tags, $thread);
+		// 中間テーブルの更新
+		$thread->tags()->sync($tags_id);
+
 		$thread->fill($params)->save();
 	}
 
@@ -182,10 +210,10 @@ class ThreadsController extends Controller
 	 */
 	public function softDelete($thread_id) 
 	{
-		dd(gettype($thread_id));
 		$thread = Thread::find($thread_id);
 		$thread->delete();
 	}
+
 	/**
 	 * 選択されたタグを含んでいるスレッドを返却
 	 * 
