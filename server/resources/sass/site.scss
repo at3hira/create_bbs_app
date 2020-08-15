@@ -317,8 +317,11 @@ h5 {
     color: #ffffff;
     font-size: 1rem;
     font-weight: normal;
+    cursor: pointer;
 }
-
+.tag-keyword:hover {
+    opacity: 0.6;
+}
 //ページネーション
 div .pagination {
     justify-content: center;
