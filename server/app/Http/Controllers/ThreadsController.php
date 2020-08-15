@@ -180,6 +180,7 @@ class ThreadsController extends Controller
 			'category_id' => 'required|integer',
 			'image'       => 'file|image|mimes:jpeg,png,jpg,gif|max:8192',
 			'tweet_tags'  => 'max:6000',
+			'sub_title'   => 'required|max:50',
 		]);
 
 		// カテゴリチェック
