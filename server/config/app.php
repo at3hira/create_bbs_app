@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'OPE'),
+    'name' => env('APP_NAME', 'Laravel'),
+    'ope_name' => env('OPE_APP_NAME', 'OPE'),
 
     /*
     |--------------------------------------------------------------------------
