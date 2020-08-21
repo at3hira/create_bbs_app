@@ -276,6 +276,6 @@ class ThreadsController extends Controller
 			'tags'    => $tags,
 			'keyword' => $keyword,
 		];
-		return view('threads.search_result', $params);
+		return view('threads.keyword_search', $params);
 	}
 }

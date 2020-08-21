@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+{{{-- キーワード検索結果ページ --}}}
 <main class="mc-wrapper main">
 	<div class="bread-area">
 		<ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
