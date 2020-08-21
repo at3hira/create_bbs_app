@@ -30,6 +30,9 @@ $areas: header, main, right, footer;
         text-align: center;
         display: block;
     }
+    h1.header-title {
+        display: none;
+    }
 }
 .bg-dark{
     background-color: $site-color !important;
@@ -295,9 +298,10 @@ label {
     border-radius: 3px;
     padding: 10px 5px 5px 5px;
     text-align: center;
-}
-h5 {
-    color: #69c0df;
+    p {
+        color: #69c0df;
+        font-size: 1.125rem;
+    }
 }
 
 .clickTagSearchList {
@@ -381,6 +385,7 @@ div .pagination {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 700;
+    font-size: 1.575rem;
 }
 .search-result-sub-title {
     color: #acb1b2;
@@ -409,7 +414,6 @@ div .pagination {
 input[type=text]:focus {
     outline: none;
 }
-
 // btn
 .btn {
     margin: 0 10px;

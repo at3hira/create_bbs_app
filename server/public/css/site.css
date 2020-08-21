@@ -37,6 +37,10 @@ body {
   display: block;
 }
 
+.navbar h1.header-title {
+  display: none;
+}
+
 .bg-dark {
   background-color: #e8faff !important;
   width: 100%;
@@ -322,8 +326,9 @@ label {
   text-align: center;
 }
 
-h5 {
+.tag-name p {
   color: #69c0df;
+  font-size: 1.125rem;
 }
 
 .clickTagSearchList {
@@ -422,6 +427,7 @@ div .pagination {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 700;
+  font-size: 1.575rem;
 }
 
 .search-result-sub-title {
