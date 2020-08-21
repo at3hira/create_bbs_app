@@ -1,5 +1,11 @@
-@extends('layout')
+@php
+	if (!empty($tag_data)) {
+		$title = $tag_data->name;
+		$article = "article";
+	}
+@endphp
 
+@extends('layout')
 @section('content')
 <main class="mc-wrapper main">
 	@auth
@@ -31,7 +37,7 @@
 			</ol>
 		</div>
 		<section class='tag-name'>
-			<h5># {{ $tag_data->name }}</h5>
+			<p># {{ $tag_data->name }}</p>
 		</section>
 	@endif
 	

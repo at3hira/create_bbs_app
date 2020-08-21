@@ -1,5 +1,9 @@
-@extends('layout')
+@php
+$title = $keyword;
+$article = 'article';
+@endphp
 
+@extends('layout')
 @section('content')
 {{{-- キーワード検索結果ページ --}}}
 <main class="mc-wrapper main">
@@ -21,7 +25,7 @@
 		</ol>
 	</div>
 	<section class='search-result'>
-		<h3 class="search-result-title">Search Result</h3>
+		<p class="search-result-title">Search Result</p>
 		<p class="search-result-sub-title">"{{ $keyword }}"の検索結果</p>
 	</section>
 	

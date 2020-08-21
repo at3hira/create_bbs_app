@@ -1,5 +1,11 @@
-@extends('layout')
+@php
+$article = "article";
+$title = $thread->title;
+$description = mb_substr($thread->body, 0, 40, "UTF-8");
+$image = $thread->img_url;
+@endphp
 
+@extends('layout')
 @section('content')
 	<main class="container mt-4 main">
 		@auth

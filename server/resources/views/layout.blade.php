@@ -2,16 +2,32 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>Laravel BBS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @isset($article)
+        <title>{{ $title }}</title>
+    @else
+        <title>{{ config('app.name') }}</title>
+    @endisset
+    @isset($description)
+        <meta property="og:description" content="{{ $description }}" />
+        <meta name="description" content="{{ $description }}">
+    @endisset
+    <!-- OGP Tag -->
+    @isset($article)
+        <meta property="og:title" content="{{ $title }}" />
+        <meta property="og:type" content="{{ $article }}" />
+    @else
+        <meta property="og:title" content="{{ config('app.name') }}" />
+        <meta property="og:type" content="website" />
+    @endisset
+    @isset($description)
+        <meta property="og:description" content="{{ $description }}" />
+        <meta property="og:image" content="{{ config('app.url') }}{{ \Config::get('app.imagePATH') }}/{{$image}}" />
+    @endisset
+    <meta property="og:site_name" content="{{ config('app.name') }}" />
+    <meta property="og:url" content="{{ request()->fullUrl() }}" />
 
-	{{--<link
-        rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossorigin="anonymous"
-	>--}}
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/site.css') }}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,700|Noto+Sans+JP:400,700" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -22,7 +38,8 @@
     <header class="navbar navbar-dark bg-dark header">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                BBS PROTO
+                {{ config('app.name', 'Laravel') }}
+                <h1 class="header-title">{{ config('app.name', 'Laravel') }}</h1>
             </a>
             @auth
                 <a href="{{ route('home') }}">{{ Auth::user()->name }}</a>
