@@ -11,7 +11,7 @@ class UtilityService extends Facade
     /** 
      * ユーザーエージェントを使ってPCとその他のデバイス判定
      * @param string $ua ユーザーエージェント
-     * @return boolean PC:true iPhone|iPad|Android|iPod:false
+     * @return boolean True:PC False:iPhone,iPad,Android,iPod
      **/
     protected function judge_device($ua)
     {
@@ -51,9 +51,7 @@ class UtilityService extends Facade
     }
 
     /**
-     * タグをtagsテーブルと中間テーブルに挿入
-     * 
-     * 中間テーブル：threadテーブルとtagsテーブルを繋ぐテーブル
+     * タグ情報をtagsテーブルに登録
      * 
      * @param string $request_tags : 登録されるタグ
      * @param object $data : 新規作成されたスレッドのレコード
@@ -65,7 +63,7 @@ class UtilityService extends Facade
         $replace_tags = str_replace('、', ',', $request_tags);
         $tag_list = explode(',', $replace_tags);
 
-		$tags = [];
+        $tags_id = [];
 		foreach($tag_list as $tag) {
 			$tag = preg_replace( '/\A[\p{C}\p{Z}]++|[\p{C}\p{Z}]++\z/u', '', $tag); //マルチバイトでの空白除去
             /* 
@@ -73,17 +71,10 @@ class UtilityService extends Facade
             *  DBにデータが存在する場合は取得、存在しない場合はDBにデータを登録した上でインスタンスを取得する
             */
             $record = Tag::firstOrCreate(['name' => $tag]); // tagsテーブルのnameカラムに該当のない$tagは新規登録
-			array_push($tags, $record);
-		}
+			array_push($tags_id, $record->id);  // $record->id : tagsテーブルのid
 
-		$tags_id = [];
-		foreach($tags as $tag) {
-			array_push($tags_id, $tag['id']);  // $tag['id'] : tagsテーブルのid
-		}
-        $thread = Thread::find($data->id); //$data->id : 作成したスレッドのid
-
-        // attachメソッドを使って中間テーブル(thread_tagテーブル)にデータ挿入
-		$thread->tags()->attach($tags_id); 
+        }
+        return $tags_id;
     }
 
     /**

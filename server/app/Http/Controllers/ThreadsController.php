@@ -12,9 +12,11 @@ use UtilityService;
 class ThreadsController extends Controller
 {
 	/**
-	 * スレッド一覧ページfunction
+	 * スレッド一覧ページ
 	 * @param object $request
-	 * @return array $params スレッドデータ、デバイス判定
+	 * @return object $thread
+	 * @return boolean $device
+	 * @return object $tags
 	 */
 	public function index(Request $request)
 	{
@@ -28,7 +30,7 @@ class ThreadsController extends Controller
 			$thread->body = strip_tags($body);
 		}
 
-		// タグを全件取得
+		// サイドメニューに表示するタグを全件取得
 		$tags = UtilityService::all_tag_list();
 
 		//$news_list = json_decode(Redis::command('get', ['news_list']));
@@ -42,13 +44,20 @@ class ThreadsController extends Controller
 		return view('threads.index', $params);
 	}
 
+	/**
+	 * スレッド作成画面
+	 */
 	public function create()
 	{
-		return view('threads.create');
+		$categorys = Category::where('status', 1)
+		->orderBy('id', 'asc')
+		->get();
+
+		return view('threads.create', ['categorys' => $categorys]);
 	}
 
 	/**
-	 * フォームからPOSTされたデータを基にスレッド新規作成
+	 * スレッド作成
 	 * 
 	 * @param object: $request
 	 */
@@ -73,30 +82,51 @@ class ThreadsController extends Controller
 		$params['img_url'] = UtilityService::save_thumbnail($new_thr_id, $params['image']);
 		unset($params['image']);
 
-		$data = Thread::create($params); //DBにデータ保存
+		$data = Thread::create($params); //threadsテーブルにデータ登録
 
 		// タグ登録
-		UtilityService::add_tags_data($request->tags, $data);
+		$tags_id = UtilityService::add_tags_data($request->tags, $data);
+
+		$thread = Thread::find($data->id); //$data->id : 作成したスレッドのid
+
+		// attachメソッドで中間テーブルにデータ登録
+		$thread->tags()->attach($tags_id);
 
 		return redirect()->route('threads.index');
 	}
 
+	/**
+	 * スレッド詳細ページ
+	 * 
+	 * @param string $thread_id
+	 * @return object $thread
+	 * @return object $tags
+	 */
 	public function show($thread_id)
 	{
 		$thread = Thread::findOrFail($thread_id);
-		// スレッドに紐づいているタグを取得
-		$threads = UtilityService::get_tags($thread);
+		$tags = UtilityService::all_tag_list();	// サイドメニューに表示するタグを全件取得
 
 		return view('threads.show', [
 			'thread' => $thread,
+			'tags' => $tags,
 		]);
 	}
 
+	/**
+	 * スレッド編集ページ
+	 * 
+	 * @param string $thread_id
+	 * @return object $thread 
+	 * @return string $tags スレッドに紐づいてるタグ
+	 * @return object $categorys
+	 */
 	public function edit($thread_id) 
 	{
 		$thread = Thread::findOrFail($thread_id);
 
-		$tagsData = $thread->tags()->orderby('tag_id')->get();	// スレッドのインスタンスオブジェクトから中間テーブルを通して紐づくタグデータを取得
+		// スレッドのインスタンスオブジェクトから中間テーブルを通して紐づくタグデータを取得
+		$tagsData = $thread->tags()->orderby('tag_id')->get();
 		$tagName = [];
 		foreach($tagsData as $tag) {
 			$tagName[] = $tag->name;
@@ -115,8 +145,34 @@ class ThreadsController extends Controller
 		]);
 	}
 
-	// スレッド更新処理
-	public function update($thread_id, Request $request)
+	/**
+	 * 更新、削除のハンドリング
+	 * edit.bladeテンプレートでSubmitボタンを複数置いた時のハンドリング
+	 * 
+	 * @param string $thread_id
+	 * @param object $request
+	 */
+	public function post_process($thread_id, Request $request)
+	{
+		if ($request->input('update')) {
+			// 更新処理
+			$this->update($thread_id, $request);
+			return redirect()->route('threads.show', ['id' => $thread_id]);
+		} elseif($request->input('delete')) {
+			// 論理削除
+			$this->softDelete($thread_id);
+			return redirect('/');
+		}
+	}
+
+	/** 
+	 * スレッド更新
+	 * 
+	 * @param string $thread_id 
+	 * @param object $request
+	 * 
+	 * */
+	public function update($thread_id, $request)
 	{
 		$params = $request->validate([
 			'title'       => 'required|max:50',
@@ -124,6 +180,7 @@ class ThreadsController extends Controller
 			'category_id' => 'required|integer',
 			'image'       => 'file|image|mimes:jpeg,png,jpg,gif|max:8192',
 			'tweet_tags'  => 'max:6000',
+			'sub_title'   => 'required|max:50',
 		]);
 
 		// カテゴリチェック
@@ -138,9 +195,24 @@ class ThreadsController extends Controller
 			unset($params['image']);
 		}
 		$thread = Thread::findOrFail($thread_id);
-		$thread->fill($params)->save();
 
-		return redirect()->route('threads.show', ['id' => $thread]);
+		// タグ登録
+		$tags_id = UtilityService::add_tags_data($request->tags, $thread);
+		// 中間テーブルの更新
+		$thread->tags()->sync($tags_id);
+
+		$thread->fill($params)->save();
+	}
+
+	/**
+	 * スレッド論理削除
+	 * 
+	 * @param string $thread_id
+	 */
+	public function softDelete($thread_id) 
+	{
+		$thread = Thread::find($thread_id);
+		$thread->delete();
 	}
 
 	/**
@@ -204,6 +276,6 @@ class ThreadsController extends Controller
 			'tags'    => $tags,
 			'keyword' => $keyword,
 		];
-		return view('threads.search_result', $params);
+		return view('threads.keyword_search', $params);
 	}
 }

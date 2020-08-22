@@ -7,7 +7,7 @@
                 投稿の編集
             </h1>
 
-            <form method="POST" action="{{ action('ThreadsController@update', $thread) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ action('ThreadsController@post_process', $thread) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -141,9 +141,10 @@
                             キャンセル
                         </a>
 
-                        <button type="submit" class="btn btn-primary">
-                            更新する
-                        </button>
+                        <input type="submit" class="btn btn-primary" name="update" value="更新する">
+                        
+                        <input type="submit" class="btn btn-danger btn-dell" name="delete" value="削除する">
+                        
                     </div>
                 </fieldset>
             </form>

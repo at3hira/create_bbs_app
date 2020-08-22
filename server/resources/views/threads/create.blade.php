@@ -107,7 +107,9 @@
 							カテゴリ
 						</label>
 						<div>
-							<label><input name="category_id" type="radio" value="1">テスト</label>
+                            @foreach($categorys as $category)
+                                <label><input name="category_id" type="radio" value="{{ $category->id }}">{{ $category->category_name }}</label>
+                            @endforeach
 						</div>
                     </div>
                     

@@ -44,8 +44,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/', 'ThreadsController@store')->name('threads.store'); 
     // スレッド編集
     Route::get('threads/{id}/edit', 'ThreadsController@edit')->name('threads.edit');
-    Route::put('threads/{id}', 'ThreadsController@update')->name('threads.update'); 
-    // スレッド削除
-    //Route::delete('threads/{id}', 'ThreadsController@destroy')->name('threads.destroy');    
+    // submitボタンの処理ハンドリング
+    Route::put('threads/post_process/{id}', 'ThreadsController@post_process')->name('threads.post_process');
 });
 

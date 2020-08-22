@@ -30,6 +30,9 @@ $areas: header, main, right, footer;
         text-align: center;
         display: block;
     }
+    h1.header-title {
+        display: none;
+    }
 }
 .bg-dark{
     background-color: $site-color !important;
@@ -295,9 +298,10 @@ label {
     border-radius: 3px;
     padding: 10px 5px 5px 5px;
     text-align: center;
-}
-h5 {
-    color: #69c0df;
+    p {
+        color: #69c0df;
+        font-size: 1.125rem;
+    }
 }
 
 .clickTagSearchList {
@@ -315,10 +319,13 @@ h5 {
     padding: 3px 9px;
     background-color: #6cb2eb;
     color: #ffffff;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: normal;
+    cursor: pointer;
 }
-
+.tag-keyword:hover {
+    opacity: 0.6;
+}
 //ページネーション
 div .pagination {
     justify-content: center;
@@ -374,10 +381,11 @@ div .pagination {
     text-align: center;
 }
 .search-result-title {
-    background: -webkit-linear-gradient(0deg, #dcff83, #56c6fc);
+    background: -webkit-linear-gradient(0deg, #cff8ff, #58bdee);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 700;
+    font-size: 1.575rem;
 }
 .search-result-sub-title {
     color: #acb1b2;
@@ -389,7 +397,6 @@ div .pagination {
     right: 0px;
     top: 60px;
     height: 60px;
-//    background-image: linear-gradient(to bottom right, #eaf4d1, #8ad7fc);
     border-radius: 16px;
     background-image: linear-gradient(to bottom right, #a3defa, #ecf8cb);
     border: solid thin #bfd1d5;
@@ -406,6 +413,10 @@ div .pagination {
 }
 input[type=text]:focus {
     outline: none;
+}
+// btn
+.btn {
+    margin: 0 10px;
 }
 //幅560px以上に適用されるCSS（タブレット用ブレイクポイント）
 @media screen and (min-width:560px){
@@ -434,7 +445,7 @@ input[type=text]:focus {
     }
     .thr_thumbnail {
         width: 160px;
-        height: 120px;
+        height: 150px;
         margin: 0.87rem;
     }
     img {
@@ -451,6 +462,9 @@ input[type=text]:focus {
     .thr_show_thumbnail img {
         width: 550px;
     }
+    .tag-keyword {
+        font-size: 1rem;
+    }    
 }
 
 //幅960px以上に適用されるCSS（PC用ブレイクポイント）
@@ -488,9 +502,14 @@ input[type=text]:focus {
         }
     }    
     .thr_thumbnail {
+        max-width: 35%;
         width: 220px;
-        height: 148px;
+        height: 200px;
         margin: 0.87rem;
+    }
+    img {
+        width: 100%;
+        height: 100%;
     }
     .thread_title {
         font-size: 1.13rem;
@@ -506,4 +525,8 @@ input[type=text]:focus {
         width: 374px;
         right: 5px;
     }
+    .card-body {
+        max-width: 55%;
+    }
+
 }
