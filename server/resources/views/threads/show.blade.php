@@ -1,5 +1,11 @@
-@extends('layout')
+@php
+$article = "article";
+$title = $thread->title;
+$description = mb_substr($thread->body, 0, 40, "UTF-8");
+$image = $thread->img_url;
+@endphp
 
+@extends('layout')
 @section('content')
 	<main class="container mt-4 main">
 		@auth
@@ -97,8 +103,16 @@
 			</form>
         </div>
 	</main>
-	<aside class="right">
-		aside
-	</aside>
+
+	{{-- サイドバー --}}
+	<div class="right">
+		<div class='sidetop'>
+			@foreach ($tags as $tag)
+				<div class="sidetag">
+					<a href="/threads/tag_search/{{ $tag->id }}">{{ $tag->name }}</a>
+				</div>
+			@endforeach
+		</div>
+	</div>
 
 @endsection

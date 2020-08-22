@@ -1,6 +1,11 @@
-@extends('layout')
+@php
+$title = $keyword;
+$article = 'article';
+@endphp
 
+@extends('layout')
 @section('content')
+{{{-- キーワード検索結果ページ --}}}
 <main class="mc-wrapper main">
 	<div class="bread-area">
 		<ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
@@ -20,14 +25,14 @@
 		</ol>
 	</div>
 	<section class='search-result'>
-		<h3 class="search-result-title">Search Result</h3>
+		<p class="search-result-title">Search Result</p>
 		<p class="search-result-sub-title">"{{ $keyword }}"の検索結果</p>
 	</section>
 	
 	<article class="container mt-4">
 		@foreach ($threads as $thread)
 			<section class="card mb-4">
-				<a class="card-link" href="{{ route('threads.show', ['thread' => $thread]) }}">
+				<a class="card-link" href="{{ route('threads.show', ['id' => $thread->id]) }}">
 					<div class="thr_thumbnail">
 						<img class="thumbnail" src="{{ \Config::get('app.imagePATH') }}/{{ $thread->img_url }}">
 					</div>
